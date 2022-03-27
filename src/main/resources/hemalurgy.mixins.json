@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "leaf.hemalurgy.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "hemalurgy.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "EffectInstanceMixin",
+    "EntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

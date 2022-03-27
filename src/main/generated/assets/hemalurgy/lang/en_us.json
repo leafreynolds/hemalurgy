@@ -1,0 +1,22 @@
+{
+  "advancements.hemalurgy.blank.description": "blank",
+  "advancements.hemalurgy.blank.title": "blank",
+  "advancements.hemalurgy.main.description": "Welcome to Hemalurgy. The way to mutilate your inner soul.",
+  "advancements.hemalurgy.main.title": "Hemalurgy",
+  "advancements.hemalurgy.obtained_guide.description": "",
+  "advancements.hemalurgy.obtained_guide.title": "Well Read",
+  "biome.hemalurgy.hemalurgy": "Hemalurgy",
+  "category.basics": "Basics",
+  "entry.guide": "Guide",
+  "entry.welcome": "Welcome",
+  "hemalurgy.landing": "They say the soul is infinite. They didn't say how empty it was to mutilate it. That's where this guide comes in.",
+  "hemalurgy:hemalurgy": "Hemalurgy",
+  "item.hemalurgy.guide": "Guide",
+  "itemGroup.hemalurgy.items": "Hemalurgy Items",
+  "keys.hemalurgy.main": "Hemalurgy",
+  "tooltip.hemalurgy.patchouli.not_installed": "Patchouli is not installed",
+  "tooltip.item.hemalurgy.guide": "If patchouli is installed, this is your guide to the mod",
+  "tooltip.item.info.control": "\u00A77Hold \u00A78[\u00A7eControl\u00A78]",
+  "tooltip.item.info.shift": "\u00A77Hold \u00A78[\u00A7eShift\u00A78]",
+  "tooltip.item.info.shift_control": "\u00A77Hold \u00A78[\u00A7eShift\u00A78] \u00A77and \u00A78[\u00A7eControl\u00A78]"
+}

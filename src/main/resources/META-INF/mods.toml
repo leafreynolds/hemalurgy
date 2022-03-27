@@ -1,0 +1,20 @@
+
+modLoader="javafml" #mandatory
+loaderVersion="[39,)" #mandatory
+license="Hemalurgy License"
+
+[[mods]] #mandatory
+modId="hemalurgy" #mandatory
+version="${file.jarVersion}"
+displayName="Hemalurgy" #mandatory
+logoFile="icon.png" #optional
+credits="Thanks for this example mod goes to Java" #optional
+authors="Leaf Reynolds" #optional
+description='''
+This is a long form description of the mod. You can write whatever you want here
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.hemalurgy]] #optional
+    modId="forge"
+    mandatory=true
+    versionRange="[39.0.44,)"

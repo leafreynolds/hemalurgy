@@ -1,0 +1,25 @@
+{
+  "name": "item.hemalurgy.guide",
+
+  "landing_text": "hemalurgy.landing",
+  "version": "buildNumber",
+
+  "book_texture": "patchouli:textures/gui/book_gray.png",
+  "model": "hemalurgy:guide",
+
+  "creative_tab": "hemalurgy.items",
+  "pause_game": true,
+
+  "dont_generate_book": true,
+  "custom_book_item": "hemalurgy:guide",
+
+  "advancements_tab": "hemalurgy:core/root",
+  "advancement_namespaces": ["hemalurgy"],
+
+  "i18n": true,
+
+  "macros": {
+    "$(item)": "$(1)",
+    "$(thing)": "$(4)"
+  }
+}

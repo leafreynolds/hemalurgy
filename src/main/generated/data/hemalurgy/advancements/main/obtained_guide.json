@@ -1,0 +1,40 @@
+{
+  "parent": "hemalurgy:main/root",
+  "display": {
+    "icon": {
+      "item": "hemalurgy:guide"
+    },
+    "title": {
+      "translate": "advancements.hemalurgy.obtained_guide.title"
+    },
+    "description": {
+      "translate": "advancements.hemalurgy.obtained_guide.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hemalurgy:guide"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

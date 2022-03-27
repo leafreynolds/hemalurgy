@@ -1,0 +1,31 @@
+{
+  "parent": "hemalurgy:main/obtained_guide",
+  "display": {
+    "icon": {
+      "item": "hemalurgy:guide"
+    },
+    "title": {
+      "translate": "advancements.hemalurgy.blank.title"
+    },
+    "description": {
+      "translate": "advancements.hemalurgy.blank.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ]
+}

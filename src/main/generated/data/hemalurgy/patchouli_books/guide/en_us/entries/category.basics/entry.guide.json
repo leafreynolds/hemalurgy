@@ -1,0 +1,15 @@
+{
+  "name": "entry.guide",
+  "category": "hemalurgy:category.basics",
+  "icon": "hemalurgy:guide",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Your guide to everything in the mod! There isn\u0027t much at the moment."
+    }
+  ],
+  "priority": false,
+  "secret": false,
+  "read_by_default": false,
+  "sortnum": 2
+}
