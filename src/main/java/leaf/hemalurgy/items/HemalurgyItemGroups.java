@@ -4,6 +4,7 @@
 
 package leaf.hemalurgy.items;
 
+import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
 import leaf.hemalurgy.registry.ItemsRegistry;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,7 +17,7 @@ public class HemalurgyItemGroups
         @Override
         public ItemStack makeIcon()
         {
-            return new ItemStack(ItemsRegistry.GUIDE.get());
+            return new ItemStack(ItemsRegistry.METAL_SPIKE.get(Metal.CADMIUM).get());
         }
     };
 }

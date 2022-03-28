@@ -4,13 +4,15 @@
 
 package leaf.hemalurgy.datagen.recipe;
 
+import com.legobmw99.allomancy.api.enums.Metal;
+import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.ItemsRegistry;
+import leaf.hemalurgy.registry.TagsRegistry;
 import leaf.hemalurgy.utils.ResourceLocationHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -40,6 +42,23 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder
 
 
 
+        for (Metal metalType : Metal.values())
+        {
+            if (ItemsRegistry.METAL_SPIKE.containsKey(metalType))
+            {
+                HemalurgicSpikeItem spikeItem = (HemalurgicSpikeItem) ItemsRegistry.METAL_SPIKE.get(metalType).get();
+                final Tag.Named<Item> metalIngotTag = TagsRegistry.Items.METAL_INGOT_TAGS.get(metalType);
+                ShapedRecipeBuilder
+                        .shaped(spikeItem)
+                        .define('X', metalIngotTag)
+                        .pattern("X")
+                        .pattern("X")
+                        .group("spike")
+                        .unlockedBy("has_material", has(metalIngotTag))
+                        .save(consumer);
+
+            }
+        }
 
     }
 

@@ -4,9 +4,11 @@
 
 package leaf.hemalurgy.datagen.language;
 
+import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
 import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.items.HemalurgyItemGroups;
+import leaf.hemalurgy.utils.MetalHelper;
 import leaf.hemalurgy.utils.StringHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
@@ -44,7 +46,7 @@ public class EngLangGen extends LanguageProvider
                 switch (localisedString)
                 {
                     case "Guide":
-                        //localisedString = "exampleOverride";
+                        localisedString = "Leather Journal";
                         tooltipString = "If patchouli is installed, this is your guide to the mod";
                         break;
                 }
@@ -87,6 +89,26 @@ public class EngLangGen extends LanguageProvider
         add(Constants.StringKeys.CONTROL_ITEM_TOOLTIP, "\u00A77Hold \u00A78[\u00A7eControl\u00A78]");
 
         add(Constants.StringKeys.PATCHOULI_NOT_INSTALLED, "Patchouli is not installed");
+        add(Constants.StringKeys.CONTAINED_POWERS_FOUND, "Hemalurgic Charge:");
+
+        for(Metal spikeMetal : Metal.values())
+        {
+            if (MetalHelper.isMetalSpikeAvailable(spikeMetal))
+            {
+                for(Metal stealType : Metal.values())
+                {
+                    final String s = MetalHelper.GetPowerName(spikeMetal, stealType);
+                    try
+                    {
+                        add("tooltip.hemalurgy." + s, StringHelper.fixCapitalisation(s));
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+            }
+        }
 
         //Guide book
         add("hemalurgy.landing", "They say the soul is infinite. They didn't say how empty it was to mutilate it. That's where this guide comes in.");

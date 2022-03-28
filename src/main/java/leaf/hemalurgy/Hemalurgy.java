@@ -4,6 +4,7 @@
 
 package leaf.hemalurgy;
 
+import leaf.hemalurgy.compat.curios.CuriosCompat;
 import leaf.hemalurgy.compat.patchouli.PatchouliCompat;
 import leaf.hemalurgy.registry.ItemsRegistry;
 import leaf.hemalurgy.utils.LogHelper;
@@ -52,6 +53,7 @@ public class Hemalurgy
 
 
         // init cross mod compatibility stuff, if relevant
+        CuriosCompat.init();
         PatchouliCompat.init();
     }
 

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "hemalurgy:iron_spike",
+    "hemalurgy:steel_spike",
+    "hemalurgy:pewter_spike",
+    "hemalurgy:brass_spike",
+    "hemalurgy:bronze_spike",
+    "hemalurgy:gold_spike",
+    "hemalurgy:electrum_spike",
+    "hemalurgy:cadmium_spike",
+    "hemalurgy:bendalloy_spike"
+  ]
+}

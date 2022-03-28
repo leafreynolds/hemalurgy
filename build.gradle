@@ -140,8 +140,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:3626712")
     runtimeOnly fg.deobf("curse.maven:journeymap-32274:3621130")
 
-    runtimeOnly fg.deobf("curse.maven:allomancy-256282:3609087")
-    runtimeOnly fg.deobf("curse.maven:feruchemy-allomancy-451618:3675746")
+    implementation fg.deobf("curse.maven:allomancy-256282:3609087")
+    implementation fg.deobf("curse.maven:feruchemy-allomancy-451618:3675746")
     //implementation fg.deobf("curse.maven:ctm-267602:2642375")
 }
 

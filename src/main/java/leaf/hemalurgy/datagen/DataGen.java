@@ -15,6 +15,8 @@ import leaf.hemalurgy.datagen.items.ItemModelsGen;
 import leaf.hemalurgy.datagen.language.EngLangGen;
 import leaf.hemalurgy.datagen.patchouli.PatchouliGen;
 import leaf.hemalurgy.datagen.recipe.RecipeGen;
+import leaf.hemalurgy.datagen.tags.BlockTagsGen;
+import leaf.hemalurgy.datagen.tags.ItemTagsGen;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,6 +37,10 @@ public class DataGen
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         generator.addProvider(new EngLangGen(generator));
+
+        BlockTagsGen blockTags = new BlockTagsGen(generator, existingFileHelper);
+        generator.addProvider(blockTags);
+        generator.addProvider(new ItemTagsGen(generator, blockTags, existingFileHelper));
 
         if (!event.includeClient())
         {
