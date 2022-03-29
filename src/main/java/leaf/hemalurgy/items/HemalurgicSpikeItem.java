@@ -100,7 +100,7 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                     stacks.add(filledIronSpike);
                 }
 
-                Collection<Metal> hemalurgyStealWhitelist = getHemalurgyStealWhitelist(getMetalType());
+                Collection<Metal> hemalurgyStealWhitelist = MetalHelper.getHemalurgyStealWhitelist(getMetalType());
                 if (hemalurgyStealWhitelist != null)
                 {
                     for (Metal stealType : hemalurgyStealWhitelist)
@@ -236,8 +236,6 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                                 com.example.feruchemy.network.NetworkUtil.sync((Player) slotContext.entity());
                             });
                             break;
-                        default:
-                            break;
                     }
                 }
             }
@@ -278,8 +276,6 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                             com.example.feruchemy.network.NetworkUtil.sync((Player) slotContext.entity());
                         });
                         break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + this.getMetalType());
                 }
             }
         }

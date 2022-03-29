@@ -137,8 +137,8 @@ dependencies {
     //runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
 
     //modname-modid:fileid?
-    runtimeOnly fg.deobf("curse.maven:appleskin-248787:3626712")
-    runtimeOnly fg.deobf("curse.maven:journeymap-32274:3621130")
+    //runtimeOnly fg.deobf("curse.maven:appleskin-248787:3626712")
+    //runtimeOnly fg.deobf("curse.maven:journeymap-32274:3621130")
 
     implementation fg.deobf("curse.maven:allomancy-256282:3609087")
     implementation fg.deobf("curse.maven:feruchemy-allomancy-451618:3675746")

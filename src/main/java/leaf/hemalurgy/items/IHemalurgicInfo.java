@@ -124,7 +124,7 @@ public interface IHemalurgicInfo
         whiteList.clear();
 
         //The type of thing you can steal is dependant on the type of metal.
-        Collection<Metal> hemalurgyStealWhitelist = getHemalurgyStealWhitelist(spikeMetalType);
+        Collection<Metal> hemalurgyStealWhitelist = MetalHelper.getHemalurgyStealWhitelist(spikeMetalType);
         if (hemalurgyStealWhitelist != null)
         {
             whiteList.addAll(hemalurgyStealWhitelist);
@@ -169,45 +169,6 @@ public interface IHemalurgicInfo
         }
     }
 
-    default Collection<Metal> getHemalurgyStealWhitelist(Metal spikeMetal)
-    {
-        return switch (spikeMetal)
-                {
-                    //Steals a physical allomantic power
-                    //Steals a physical feruchemical power
-                    //Iron//Steel//Tin//Pewter
-                    case STEEL, PEWTER -> Arrays.asList(
-                            Metal.IRON,
-                            Metal.STEEL,
-                            Metal.TIN,
-                            Metal.PEWTER);
-                    //Steals a Mental Allomantic power
-                    //Steals a cognitive feruchemical power
-                    //Zinc//Brass//Copper//Bronze
-                    case BRASS, BRONZE -> Arrays.asList(
-                            Metal.ZINC,
-                            Metal.BRASS,
-                            Metal.COPPER,
-                            Metal.BRONZE);
-                    //Steals a Temporal Allomantic power
-                    //Steals a Hybrid Feruchemical power
-                    //Cadmium//Bendalloy//Gold//Electrum
-                    case CADMIUM, GOLD -> Arrays.asList(
-                            Metal.CADMIUM,
-                            Metal.BENDALLOY,
-                            Metal.GOLD,
-                            Metal.ELECTRUM);
-                    //Steals an Enhancement Allomantic power
-                    //Steals a Spiritual Feruchemical power
-                    //Chromium//Nicrosil//Aluminum//Duralumin
-                    case BENDALLOY, ELECTRUM -> Arrays.asList(
-                            Metal.CHROMIUM,
-                            Metal.NICROSIL,
-                            Metal.ALUMINUM,
-                            Metal.DURALUMIN);
-                    default -> null;
-                };
-    }
 
     default Optional<Metal> getRandomMetalPowerFromList(
             List<Metal> manifestationsFound,
@@ -304,7 +265,7 @@ public interface IHemalurgicInfo
         }
 
 
-        Collection<Metal> hemalurgyStealWhitelist = getHemalurgyStealWhitelist(hemalurgicSpikeItem.getMetalType());
+        Collection<Metal> hemalurgyStealWhitelist = MetalHelper.getHemalurgyStealWhitelist(hemalurgicSpikeItem.getMetalType());
 
         if (hemalurgyStealWhitelist != null)
         {
