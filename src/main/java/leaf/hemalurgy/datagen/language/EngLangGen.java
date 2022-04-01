@@ -97,7 +97,7 @@ public class EngLangGen extends LanguageProvider
             {
                 for(Metal stealType : Metal.values())
                 {
-                    final String s = MetalHelper.GetPowerName(spikeMetal, stealType);
+                    final String s = MetalHelper.getPowerName(spikeMetal, stealType);
                     try
                     {
                         add("tooltip.hemalurgy." + s, StringHelper.fixCapitalisation(s));

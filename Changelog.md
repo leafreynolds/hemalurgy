@@ -1,5 +1,9 @@
 ## Hemalurgy - For 1.18.1 Minecraft
 
+### B3
+
+Hemalurgic Tin spikes implemented.
+
 ### B2
 
 Fixed a crash related to removing an iron spike.

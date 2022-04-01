@@ -4,12 +4,13 @@
 
 package leaf.hemalurgy.items;
 
-import com.example.feruchemy.caps.FeruchemyCapability;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
+import leaf.hemalurgy.compat.curios.CuriosCompat;
+import leaf.hemalurgy.compat.curios.HemalurgyCurios;
 import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.properties.PropTypes;
 import leaf.hemalurgy.utils.LogHelper;
@@ -18,6 +19,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -29,12 +31,16 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = Hemalurgy.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHemalurgicInfo, ICurioItem
@@ -95,8 +101,14 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                     //currently will try 70%
                     double strengthToAdd = 15 * 0.7D;// Iron golems have the most base attack damage of normal mods (giants have 50??). Ravagers have
 
-                    Invest(filledIronSpike, MetalHelper.GetPowerName(this.getMetalType()), strengthToAdd, UUID.randomUUID());
+                    Invest(filledIronSpike, MetalHelper.getPowerName(this.getMetalType()), strengthToAdd, UUID.randomUUID());
 
+                    stacks.add(filledIronSpike);
+                }
+                else if (this.getMetalType() == Metal.TIN)
+                {
+                    ItemStack filledIronSpike = new ItemStack(this);
+                    Invest(filledIronSpike, MetalHelper.getPowerName(this.getMetalType()), 0.33f, UUID.randomUUID());
                     stacks.add(filledIronSpike);
                 }
 
@@ -108,7 +120,7 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                         try
                         {
                             ItemStack spike = new ItemStack(this);
-                            Invest(spike, MetalHelper.GetPowerName(this.getMetalType(), stealType), 10, Constants.NBTKeys.UNSEALED_UUID);
+                            Invest(spike, MetalHelper.getPowerName(this.getMetalType(), stealType), 10, UUID.randomUUID());
                             stacks.add(spike);
                         }
                         catch (Exception e)
@@ -181,10 +193,38 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
     }
 
     @Override
-    public boolean canEquip(String identifier, LivingEntity livingEntity, ItemStack stack)
+    public boolean canEquip(SlotContext slotContext, ItemStack stack)
     {
-        //has to be a conscious decision to stab yourself
+        //do not allow players to wear two spikes of the same metal empowered by the same killed entity UUID
+        if (slotContext.entity() instanceof Player)
+        {
+            Player player = (Player)slotContext.entity();
+            final UUID stackWeWantToEquipUUID = getHemalurgicIdentity(stack);
+
+            if (stackWeWantToEquipUUID != null)
+            {
+                Predicate<ItemStack> spikePredicate = stackToFind ->
+                {
+                    final boolean isSpike = stackToFind.getItem() instanceof HemalurgicSpikeItem;
+                    final HemalurgicSpikeItem hemalurgicSpikeItem = (HemalurgicSpikeItem) stackToFind.getItem();
+                    final UUID foundSpikeUUID = getHemalurgicIdentity(stackToFind);
+                    return isSpike
+                            && hemalurgicSpikeItem.getMetalType() == metalType
+                            && foundSpikeUUID != null
+                            && foundSpikeUUID.compareTo(stackWeWantToEquipUUID) == 0;
+                };
+                final Optional<ImmutableTriple<String, Integer, ItemStack>> curioSpike = CuriosApi.getCuriosHelper().findEquippedCurio(spikePredicate, player);
+                return curioSpike.isEmpty();
+            }
+        }
         return true;
+    }
+
+    @Override
+    public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity)
+    {
+        //can't equip in armor slots
+        return false;
     }
 
     @Override

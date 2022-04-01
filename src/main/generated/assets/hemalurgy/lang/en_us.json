@@ -21,6 +21,7 @@
   "item.hemalurgy.iron_spike": "Iron Spike",
   "item.hemalurgy.pewter_spike": "Pewter Spike",
   "item.hemalurgy.steel_spike": "Steel Spike",
+  "item.hemalurgy.tin_spike": "Tin Spike",
   "itemGroup.hemalurgy.items": "Hemalurgy Items",
   "keys.hemalurgy.main": "Hemalurgy",
   "tooltip.hemalurgy.allomantic_aluminum": "Allomantic Aluminum",
@@ -58,6 +59,7 @@
   "tooltip.hemalurgy.iron": "Iron",
   "tooltip.hemalurgy.patchouli.not_installed": "Patchouli is not installed",
   "tooltip.hemalurgy.power.found": "Hemalurgic Charge:",
+  "tooltip.hemalurgy.tin": "Tin",
   "tooltip.item.hemalurgy.bendalloy_spike": "",
   "tooltip.item.hemalurgy.brass_spike": "",
   "tooltip.item.hemalurgy.bronze_spike": "",
@@ -68,6 +70,7 @@
   "tooltip.item.hemalurgy.iron_spike": "",
   "tooltip.item.hemalurgy.pewter_spike": "",
   "tooltip.item.hemalurgy.steel_spike": "",
+  "tooltip.item.hemalurgy.tin_spike": "",
   "tooltip.item.info.control": "\u00A77Hold \u00A78[\u00A7eControl\u00A78]",
   "tooltip.item.info.shift": "\u00A77Hold \u00A78[\u00A7eShift\u00A78]",
   "tooltip.item.info.shift_control": "\u00A77Hold \u00A78[\u00A7eShift\u00A78] \u00A77and \u00A78[\u00A7eControl\u00A78]"

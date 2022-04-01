@@ -7,6 +7,7 @@ package leaf.hemalurgy.items;
 import com.google.common.collect.Multimap;
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.constants.Constants;
+import leaf.hemalurgy.registry.AttributesRegistry;
 import leaf.hemalurgy.utils.CompoundNBTHelper;
 import leaf.hemalurgy.utils.MetalHelper;
 import leaf.hemalurgy.utils.StackNBTHelper;
@@ -56,47 +57,29 @@ public interface IHemalurgicInfo
     default void stealFromSpiritweb(ItemStack stack, Metal spikeMetalType, LivingEntity entityKilled)
     {
         CompoundTag hemalurgyInfo = getHemalurgicInfo(stack);
-
         //Steals non-manifestation based abilities. traits inherent to an entity?
         switch (spikeMetalType)
         {
             case IRON:
-                //steals physical strength
-                double strengthCurrent = CompoundNBTHelper.getDouble(hemalurgyInfo, spikeMetalType.name(), 0);
-                //don't steal modified values, only base value
-                //todo decide how much strength is reasonable to steal and how much goes to waste
-                //currently will try 70%
-                double strengthToAdd = entityKilled.getAttributes().getBaseValue(Attributes.ATTACK_DAMAGE) * 0.7D;
-
-                Invest(stack, MetalHelper.GetPowerName(spikeMetalType), strengthCurrent + strengthToAdd, entityKilled.getUUID());
-                return;
             case TIN:
-                //Steals senses
-                //todo figure out what that means in minecraft
-                break;
             case COPPER:
-                //Steals mental fortitude, memory, and intelligence
-                //todo increase base xp gain?
-                break;
             case ZINC:
-                //Steals emotional fortitude
-                //todo figure out what that means
-                break;
             case ALUMINUM:
-                //Removes all powers
-                //... ooops?
-                //maybe its an item you can equip on others that they then have to remove?
-                break;
             case DURALUMIN:
-                //Steals Connection/Identity
-                break;
             case CHROMIUM:
-                //Might steal destiny
-                //so we could add some permanent luck?
-                break;
             case NICROSIL:
-                //Steals Investiture
-                break;
+
+            //Non-Manifestation based hemalurgy all comes here
+                //How much is already stored? (like koloss spikes could keep storing strength on the same spike)
+                final double strengthCurrent = CompoundNBTHelper.getDouble(hemalurgyInfo, spikeMetalType.name(), 0);
+                //how much should we add.
+                final double entityAbilityStrength = MetalHelper.getEntityAbilityStrength(entityKilled, spikeMetalType);
+                final double strengthToAdd = strengthCurrent + entityAbilityStrength;
+                if (strengthToAdd > 0)
+                {
+                    Invest(stack, MetalHelper.getPowerName(spikeMetalType), strengthToAdd, entityKilled.getUUID());
+                }
+                return;
         }
 
         List<Metal> allomancerPowersFound = new ArrayList<>();
@@ -140,7 +123,7 @@ public interface IHemalurgicInfo
                     Optional<Metal> metal = getRandomMetalPowerFromList(allomancerPowersFound, whiteList);
                     if (metal.isPresent())
                     {
-                        Invest(stack, MetalHelper.GetPowerName(spikeMetalType, metal.get()), 10, entityKilled.getUUID());
+                        Invest(stack, MetalHelper.getPowerName(spikeMetalType, metal.get()), 10, entityKilled.getUUID());
                         entityKilled.getCapability(com.legobmw99.allomancy.modules.powers.data.AllomancerCapability.PLAYER_CAP).ifPresent((iAllomancerData) ->
                         {
                             iAllomancerData.revokePower(metal.get());
@@ -157,7 +140,7 @@ public interface IHemalurgicInfo
                     Optional<Metal> metal = getRandomMetalPowerFromList(feruchemistPowersFound, whiteList);
                     if (metal.isPresent())
                     {
-                        Invest(stack, MetalHelper.GetPowerName(spikeMetalType, metal.get()), 10, entityKilled.getUUID());
+                        Invest(stack, MetalHelper.getPowerName(spikeMetalType, metal.get()), 10, entityKilled.getUUID());
                         entityKilled.getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP).ifPresent((iFeruchemistData) ->
                         {
                             iFeruchemistData.revokePower(metal.get());
@@ -203,7 +186,7 @@ public interface IHemalurgicInfo
 
         final double strength = CompoundNBTHelper.getDouble(
                 hemalurgyInfo,
-                MetalHelper.GetPowerName(metalType),
+                MetalHelper.getPowerName(metalType),
                 0);
 
         switch (metalType)
@@ -220,7 +203,14 @@ public interface IHemalurgicInfo
                 break;
             case TIN:
                 //Steals senses
-                //todo figure out what that means in minecraft
+                //a type of night vision
+                attributeModifiers.put(
+                        AttributesRegistry.TIN_SENSES_ATTRIBUTE.get(),
+                        new AttributeModifier(
+                                hemalurgicIdentity,
+                                "Hemalurgic " + metalType.name(),
+                                strength,
+                                AttributeModifier.Operation.ADDITION));
                 break;
             case ZINC:
                 //Steals emotional fortitude
@@ -255,7 +245,7 @@ public interface IHemalurgicInfo
 
         if (hemalurgicSpikeItem.getMetalType() == Metal.IRON)
         {
-            double attackDamage = CompoundNBTHelper.getDouble(hemalurgicSpikeItem.getHemalurgicInfo(stack), MetalHelper.GetPowerName(Metal.IRON), 0);
+            double attackDamage = CompoundNBTHelper.getDouble(hemalurgicSpikeItem.getHemalurgicInfo(stack), MetalHelper.getPowerName(Metal.IRON), 0);
 
             //todo, make this translated text
             if (attackDamage > 0)
@@ -275,20 +265,20 @@ public interface IHemalurgicInfo
                 if (hasHemalurgicPower(stack, hemalurgicSpikeItem.getMetalType(), stealType))
                 {
                     //then grant it
-                    tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.GetPowerName(hemalurgicSpikeItem.getMetalType(), stealType)));
+                    tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.getPowerName(hemalurgicSpikeItem.getMetalType(), stealType)));
                 }
             }
         }
         else
         {
-            tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.GetPowerName(hemalurgicSpikeItem.getMetalType())));
+            tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.getPowerName(hemalurgicSpikeItem.getMetalType())));
         }
 
     }
 
     default boolean hasHemalurgicPower(ItemStack stack, Metal spikeMetal, Metal stealType)
     {
-        return CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.GetPowerName(spikeMetal, stealType), 0) > 0;
+        return CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.getPowerName(spikeMetal, stealType), 0) > 0;
     }
 
     default void Invest(ItemStack stack, String power, double level, UUID identity)

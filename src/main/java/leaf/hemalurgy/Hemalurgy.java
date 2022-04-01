@@ -6,6 +6,7 @@ package leaf.hemalurgy;
 
 import leaf.hemalurgy.compat.curios.CuriosCompat;
 import leaf.hemalurgy.compat.patchouli.PatchouliCompat;
+import leaf.hemalurgy.registry.AttributesRegistry;
 import leaf.hemalurgy.registry.ItemsRegistry;
 import leaf.hemalurgy.utils.LogHelper;
 import leaf.hemalurgy.utils.ResourceLocationHelper;
@@ -43,7 +44,7 @@ public class Hemalurgy
         ItemsRegistry.ITEMS.register(modBus);
         //EffectsRegistry.EFFECTS.register(modBus);
         //LootModifierRegistry.LOOT_MODIFIERS.register(modBus);
-        //AttributesRegistry.ATTRIBUTES.register(modBus);
+        AttributesRegistry.ATTRIBUTES.register(modBus);
         //EntityRegistry.ENTITIES.register(modBus);
 
         //FeatureRegistry.FEATURES.register(modBus);
