@@ -5,6 +5,7 @@
 package leaf.hemalurgy.utils;
 
 import com.legobmw99.allomancy.api.enums.Metal;
+import leaf.hemalurgy.registry.AttributesRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,16 +28,16 @@ public class MetalHelper
             case IRON:
             case STEEL:
             case TIN:
+            case PEWTER:
+            case COPPER:
             case BRONZE:
             case CADMIUM:
             case ELECTRUM:
-            case PEWTER:
             case BRASS:
             case BENDALLOY:
             case GOLD:
                 return true;
             case ZINC:
-            case COPPER:
             case ALUMINUM:
             case DURALUMIN:
             case CHROMIUM:
@@ -46,7 +47,7 @@ public class MetalHelper
         }
     }
 
-    public static double getEntityAbilityStrength(LivingEntity killedEntity, Metal metalSpikeType)
+    public static double getEntityAbilityStrength(LivingEntity killedEntity, Player playerEntity, Metal metalSpikeType)
     {
         //Steals non-manifestation based abilities. traits inherent to an entity?
         double strengthToAdd = 0;
@@ -97,7 +98,38 @@ public class MetalHelper
                 break;
             case COPPER:
                 //Steals mental fortitude, memory, and intelligence
-                //todo increase base xp gain?
+                //increase base xp gain rate
+                final float potentialRewardRate = killedEntity.getExperienceReward(playerEntity) / 150f;
+
+                if (killedEntity instanceof Player)
+                {
+                    final AttributeInstance attribute = killedEntity.getAttribute(AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.COPPER.getName()).get());
+                    if (attribute != null)
+                    {
+                        //70% strength to spike
+                        strengthToAdd = attribute.getValue() * 0.70;
+                        //25% remaining on player
+                        final double newBaseValue = attribute.getValue() * 0.25;
+                        attribute.setBaseValue(((int)(newBaseValue * 100)) / 100f);
+                    }
+                    else
+                    {
+                        strengthToAdd = potentialRewardRate;
+                    }
+                }
+                else if (killedEntity instanceof EnderDragon)
+                {
+                    EnderDragon dragonEntity = (EnderDragon) killedEntity;
+                    //dragon doesn't reward xp in a typical way
+                    strengthToAdd =
+                            dragonEntity.getDragonFight() != null && !dragonEntity.getDragonFight().hasPreviouslyKilledDragon()
+                            ? 1 //give first person to kill dragon a full rate increase spike
+                            : 0.33;//else similar to wither rate.
+                }
+                else
+                {
+                    strengthToAdd = potentialRewardRate;
+                }
                 break;
             case ZINC:
                 //Steals emotional fortitude

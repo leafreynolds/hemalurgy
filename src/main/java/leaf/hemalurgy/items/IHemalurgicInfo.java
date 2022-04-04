@@ -54,7 +54,7 @@ public interface IHemalurgicInfo
         return stack.getOrCreateTagElement("hemalurgy");
     }
 
-    default void stealFromSpiritweb(ItemStack stack, Metal spikeMetalType, LivingEntity entityKilled)
+    default void stealFromSpiritweb(ItemStack stack, Metal spikeMetalType, Player playerEntity, LivingEntity entityKilled)
     {
         CompoundTag hemalurgyInfo = getHemalurgicInfo(stack);
         //Steals non-manifestation based abilities. traits inherent to an entity?
@@ -73,7 +73,7 @@ public interface IHemalurgicInfo
                 //How much is already stored? (like koloss spikes could keep storing strength on the same spike)
                 final double strengthCurrent = CompoundNBTHelper.getDouble(hemalurgyInfo, spikeMetalType.name(), 0);
                 //how much should we add.
-                final double entityAbilityStrength = MetalHelper.getEntityAbilityStrength(entityKilled, spikeMetalType);
+                final double entityAbilityStrength = MetalHelper.getEntityAbilityStrength(entityKilled, playerEntity, spikeMetalType);
                 final double strengthToAdd = strengthCurrent + entityAbilityStrength;
                 if (strengthToAdd > 0)
                 {
@@ -205,7 +205,7 @@ public interface IHemalurgicInfo
                 //Steals senses
                 //a type of night vision
                 attributeModifiers.put(
-                        AttributesRegistry.TIN_SENSES_ATTRIBUTE.get(),
+                        AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.TIN.getName()).get(),
                         new AttributeModifier(
                                 hemalurgicIdentity,
                                 "Hemalurgic " + metalType.name(),
@@ -218,7 +218,13 @@ public interface IHemalurgicInfo
                 break;
             case COPPER:
                 //Steals mental fortitude, memory, and intelligence
-                //todo increase base xp gain?
+                attributeModifiers.put(
+                        AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.COPPER.getName()).get(),
+                        new AttributeModifier(
+                                hemalurgicIdentity,
+                                "Hemalurgic " + metalType.name(),
+                                strength,
+                                AttributeModifier.Operation.ADDITION));
                 break;
             case CHROMIUM:
                 //Might steal destiny

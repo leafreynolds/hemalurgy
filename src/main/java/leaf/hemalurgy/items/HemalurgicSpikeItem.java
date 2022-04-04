@@ -153,7 +153,7 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
         addInvestitureInformation(stack, this, tooltip);
     }
 
-    public void killedEntity(ItemStack stack, LivingEntity entityKilled)
+    public void killedEntity(ItemStack stack, Player playerEntity, LivingEntity entityKilled)
     {
         //https://wob.coppermind.net/events/332/#e9569
 
@@ -164,7 +164,7 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
         }
 
         // ensure we set the stolen identity
-        stealFromSpiritweb(stack, getMetalType(), entityKilled);
+        stealFromSpiritweb(stack, getMetalType(),playerEntity, entityKilled);
     }
 
     @Override

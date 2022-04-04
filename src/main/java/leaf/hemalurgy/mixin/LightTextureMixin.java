@@ -4,6 +4,7 @@
 
 package leaf.hemalurgy.mixin;
 
+import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.registry.AttributesRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -26,7 +27,7 @@ public class LightTextureMixin
 			return prev;
 		}
 
-		AttributeInstance attribute = clientPlayer.getAttribute(AttributesRegistry.TIN_SENSES_ATTRIBUTE.get());
+		AttributeInstance attribute = clientPlayer.getAttribute(AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.TIN.getName()).get());
 		//return modded val
 		return attribute != null ? (float) attribute.getValue() : prev;
 	}
