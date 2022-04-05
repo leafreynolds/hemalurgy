@@ -9,10 +9,10 @@ import leaf.hemalurgy.registry.AttributesRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Pufferfish;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Arrays;
@@ -36,11 +36,11 @@ public class MetalHelper
             case BRASS:
             case BENDALLOY:
             case GOLD:
+            case CHROMIUM:
                 return true;
             case ZINC:
             case ALUMINUM:
             case DURALUMIN:
-            case CHROMIUM:
             case NICROSIL:
             default:
                 return false;
@@ -146,6 +146,19 @@ public class MetalHelper
             case CHROMIUM:
                 //Might steal destiny
                 //so we could add some permanent luck?
+
+                if (killedEntity instanceof Rabbit)
+                {
+                    strengthToAdd = 0.77;
+                }
+                else if (killedEntity instanceof WitherSkeleton)
+                {
+                    strengthToAdd = -0.77;
+                }
+                else if (killedEntity instanceof Pufferfish)
+                {
+                    strengthToAdd = -0.05;
+                }
                 break;
             case NICROSIL:
                 //Steals Investiture

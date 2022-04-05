@@ -8,10 +8,7 @@ import com.google.common.collect.Multimap;
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.registry.AttributesRegistry;
-import leaf.hemalurgy.utils.CompoundNBTHelper;
-import leaf.hemalurgy.utils.MetalHelper;
-import leaf.hemalurgy.utils.StackNBTHelper;
-import leaf.hemalurgy.utils.TextHelper;
+import leaf.hemalurgy.utils.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.*;
 
@@ -75,7 +73,7 @@ public interface IHemalurgicInfo
                 //how much should we add.
                 final double entityAbilityStrength = MetalHelper.getEntityAbilityStrength(entityKilled, playerEntity, spikeMetalType);
                 final double strengthToAdd = strengthCurrent + entityAbilityStrength;
-                if (strengthToAdd > 0)
+                if (strengthToAdd > 0.01 || strengthToAdd < -0.01)
                 {
                     Invest(stack, MetalHelper.getPowerName(spikeMetalType), strengthToAdd, entityKilled.getUUID());
                 }
@@ -189,51 +187,54 @@ public interface IHemalurgicInfo
                 MetalHelper.getPowerName(metalType),
                 0);
 
+        Attribute attribute = null;
+        AttributeModifier.Operation attributeModifier = AttributeModifier.Operation.ADDITION;
+
         switch (metalType)
         {
             case IRON:
-                attributeModifiers.put(
-                        Attributes.ATTACK_DAMAGE,
-                        new AttributeModifier(
-                                hemalurgicIdentity,
-                                "Hemalurgic " + metalType.name(),
-                                strength,
-                                AttributeModifier.Operation.ADDITION));
-
-                break;
-            case TIN:
-                //Steals senses
-                //a type of night vision
-                attributeModifiers.put(
-                        AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.TIN.getName()).get(),
-                        new AttributeModifier(
-                                hemalurgicIdentity,
-                                "Hemalurgic " + metalType.name(),
-                                strength,
-                                AttributeModifier.Operation.ADDITION));
-                break;
-            case ZINC:
-                //Steals emotional fortitude
-                //todo figure out what that means
-                break;
-            case COPPER:
-                //Steals mental fortitude, memory, and intelligence
-                attributeModifiers.put(
-                        AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.COPPER.getName()).get(),
-                        new AttributeModifier(
-                                hemalurgicIdentity,
-                                "Hemalurgic " + metalType.name(),
-                                strength,
-                                AttributeModifier.Operation.ADDITION));
+                attribute = Attributes.ATTACK_DAMAGE;
                 break;
             case CHROMIUM:
                 //Might steal destiny
                 //so we could add some permanent luck?
+                attribute = Attributes.LUCK;
+                break;
+            default:
+                //TIN:
+                //Steals senses
+                //a type of night vision
+
+                //Copper:
+                //Steals mental fortitude, memory, and intelligence
+
+
+                final RegistryObject<Attribute> attributeRegistryObject = AttributesRegistry.COSMERE_ATTRIBUTES.get(metalType.getName());
+                if (attributeRegistryObject != null && attributeRegistryObject.isPresent())
+                {
+                    attribute = attributeRegistryObject.get();
+                }
+                break;
+            /*
+            case ZINC:
+                //Steals emotional fortitude
+                //todo figure out what that means
                 break;
             case NICROSIL:
                 //Steals Investiture
                 //todo figure out what that means
-                break;
+                break;*/
+        }
+
+        if (attribute != null)
+        {
+            attributeModifiers.put(
+                    attribute,
+                    new AttributeModifier(
+                            hemalurgicIdentity,
+                            "Hemalurgic " + metalType.getName(),
+                            strength,
+                            attributeModifier));
         }
 
         return attributeModifiers;
@@ -248,18 +249,6 @@ public interface IHemalurgicInfo
         }
 
         tooltip.add(TextHelper.createTranslatedText(Constants.StringKeys.CONTAINED_POWERS_FOUND));
-
-        if (hemalurgicSpikeItem.getMetalType() == Metal.IRON)
-        {
-            double attackDamage = CompoundNBTHelper.getDouble(hemalurgicSpikeItem.getHemalurgicInfo(stack), MetalHelper.getPowerName(Metal.IRON), 0);
-
-            //todo, make this translated text
-            if (attackDamage > 0)
-            {
-                tooltip.add(TextHelper.createText("+" + attackDamage + " Attack Damage"));
-            }
-        }
-
 
         Collection<Metal> hemalurgyStealWhitelist = MetalHelper.getHemalurgyStealWhitelist(hemalurgicSpikeItem.getMetalType());
 
@@ -284,7 +273,9 @@ public interface IHemalurgicInfo
 
     default boolean hasHemalurgicPower(ItemStack stack, Metal spikeMetal, Metal stealType)
     {
-        return CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.getPowerName(spikeMetal, stealType), 0) > 0;
+        final double aDouble = CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.getPowerName(spikeMetal, stealType), 0);
+        final double marginOfError = 0.01;
+        return aDouble > marginOfError || aDouble < -marginOfError;
     }
 
     default void Invest(ItemStack stack, String power, double level, UUID identity)

@@ -44,8 +44,6 @@ public class ItemsRegistry
                                     () -> createItem(new HemalurgicSpikeItem(type))
                             )));
 
-
-
     private static <T extends net.minecraft.world.item.Item> T createItem(T item)
     {
         return item;

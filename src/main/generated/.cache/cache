@@ -1,8 +1,10 @@
-ff5103e7ee0bd7573b5f13b58245c6f650d3d496 assets/hemalurgy/lang/en_us.json
+bfa32bb7915f533395350ae32d632401f19c1256 assets/hemalurgy/lang/en_us.json
 5f3a197f6c21d08be8c561e05ade5ee57136c6ab assets/hemalurgy/models/item/bendalloy_spike.json
 d4b082cd10fe66ef8580768ac0fd469a0a4e4a5c assets/hemalurgy/models/item/brass_spike.json
 f115237613b3263c0cd8c32901b5e158a15a7802 assets/hemalurgy/models/item/bronze_spike.json
 58329f10b8b776e78202503c1a63d1d84a3652df assets/hemalurgy/models/item/cadmium_spike.json
+04167573decad7e0a2a1764a81d72998e36c3927 assets/hemalurgy/models/item/chromium_spike.json
+5b0daa17637812d6bc65d3f3d5d13da194ba0494 assets/hemalurgy/models/item/copper_spike.json
 2ce533f3e9e82781dac17cddc459819c09b43b25 assets/hemalurgy/models/item/electrum_spike.json
 f3b1d50c4430aca6c8e04d72ec4d9d92d9fb7f9c assets/hemalurgy/models/item/gold_spike.json
 189dcebd9b27424f176d84bcd9b478f5c214cfa9 assets/hemalurgy/models/item/guide.json
@@ -10,7 +12,7 @@ f3b1d50c4430aca6c8e04d72ec4d9d92d9fb7f9c assets/hemalurgy/models/item/gold_spike
 0e40e8e8d24c9018dc517cf3240d950b2d8d0768 assets/hemalurgy/models/item/pewter_spike.json
 86b9e73fd5337d61d19c352cce1e90c9e95434e6 assets/hemalurgy/models/item/steel_spike.json
 6b450a083e0d44f314ab82fa719c7af66c5fb912 assets/hemalurgy/models/item/tin_spike.json
-985ad0364ba005d22cdda12af5ceea4288a401fd data/curios/tags/items/curio.json
+4b5e98d81c3030756696a6f333cd4d0b36b3c2ba data/curios/tags/items/curio.json
 87b22b17c0eb38a6b36ac777fd788fde8a8d8c9e data/hemalurgy/advancements/main/blank.json
 06ddfb15e187af827dab5ca17fedf3fdd63d86b3 data/hemalurgy/advancements/main/obtained_guide.json
 6cc29dc10d826270249299251155c28e6cf4bb61 data/hemalurgy/advancements/main/root.json
@@ -18,6 +20,8 @@ f3b1d50c4430aca6c8e04d72ec4d9d92d9fb7f9c assets/hemalurgy/models/item/gold_spike
 02a107e6b0259cd9d0df1f8585cb7c7f925d9e71 data/hemalurgy/advancements/recipes/hemalurgy.items/brass_spike.json
 1b94ba282e0bf9a73904bfaea6969d98793b993f data/hemalurgy/advancements/recipes/hemalurgy.items/bronze_spike.json
 c7add766d8006bab1073a2a68500dc707b76f4ec data/hemalurgy/advancements/recipes/hemalurgy.items/cadmium_spike.json
+e49570b820aca9e6282a2ca996bdc38c325fe826 data/hemalurgy/advancements/recipes/hemalurgy.items/chromium_spike.json
+d48dc9b3ad49ac13daee05c7498b84a1883fb295 data/hemalurgy/advancements/recipes/hemalurgy.items/copper_spike.json
 a75d0612bcaaa46e3b6ece72d28a3e0a62c535df data/hemalurgy/advancements/recipes/hemalurgy.items/electrum_spike.json
 aa32bc2bfbc0559f8f9466eb5eb063e199e57e60 data/hemalurgy/advancements/recipes/hemalurgy.items/gold_spike.json
 a0d95db4b25f3c9a401986a3d94caeb714823c3a data/hemalurgy/advancements/recipes/hemalurgy.items/iron_spike.json
@@ -31,6 +35,8 @@ d8963be2b7c7ed53d02f341706d8223f38f15f4e data/hemalurgy/recipes/bendalloy_spike.
 6e6b008d29539ff0bdf2787a4f522ea2f36b97dc data/hemalurgy/recipes/brass_spike.json
 f15feb8c3d85126696cb98da6bc6a16779765058 data/hemalurgy/recipes/bronze_spike.json
 b414fb1c3da7cb1c6d2809ea1d2744bf14a7c44a data/hemalurgy/recipes/cadmium_spike.json
+9a577b388cf7627518aeb3131d074d3540cf0eda data/hemalurgy/recipes/chromium_spike.json
+7240c4e9a0805f89ee058f0ad62c19726eb1d880 data/hemalurgy/recipes/copper_spike.json
 3c578e981d32e1b3c1248065f89f41a079fde9f5 data/hemalurgy/recipes/electrum_spike.json
 67c731832070738b0b88c86a9ce414be2f165e31 data/hemalurgy/recipes/gold_spike.json
 97068067a1a7c809c8ccee723ca23931d46c0772 data/hemalurgy/recipes/iron_spike.json
