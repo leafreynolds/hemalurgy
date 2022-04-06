@@ -9,6 +9,7 @@ import leaf.hemalurgy.registry.AttributesRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
@@ -153,11 +154,24 @@ public class MetalHelper
                 }
                 else if (killedEntity instanceof WitherSkeleton)
                 {
-                    strengthToAdd = -0.77;
+                    strengthToAdd = -0.55;
                 }
                 else if (killedEntity instanceof Pufferfish)
                 {
                     strengthToAdd = -0.05;
+                }
+                else if (killedEntity instanceof Cat)
+                {
+                    Cat cat = (Cat) killedEntity;
+                    final int catType = cat.getCatType();
+                    if (catType == Cat.TYPE_ALL_BLACK)
+                    {
+                        strengthToAdd = -1;
+                    }
+                    else if (catType == Cat.TYPE_WHITE)
+                    {
+                        strengthToAdd = 0.35;
+                    }
                 }
                 break;
             case NICROSIL:
