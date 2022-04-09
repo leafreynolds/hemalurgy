@@ -1,4 +1,5 @@
-bfa32bb7915f533395350ae32d632401f19c1256 assets/hemalurgy/lang/en_us.json
+4db5a77f29d2049ced80483659812383e24f8066 assets/hemalurgy/lang/en_us.json
+2d0c54d92c305a7744abdc400cfed65c8e18b3f0 assets/hemalurgy/models/item/aluminum_spike.json
 5f3a197f6c21d08be8c561e05ade5ee57136c6ab assets/hemalurgy/models/item/bendalloy_spike.json
 d4b082cd10fe66ef8580768ac0fd469a0a4e4a5c assets/hemalurgy/models/item/brass_spike.json
 f115237613b3263c0cd8c32901b5e158a15a7802 assets/hemalurgy/models/item/bronze_spike.json
@@ -12,10 +13,11 @@ f3b1d50c4430aca6c8e04d72ec4d9d92d9fb7f9c assets/hemalurgy/models/item/gold_spike
 0e40e8e8d24c9018dc517cf3240d950b2d8d0768 assets/hemalurgy/models/item/pewter_spike.json
 86b9e73fd5337d61d19c352cce1e90c9e95434e6 assets/hemalurgy/models/item/steel_spike.json
 6b450a083e0d44f314ab82fa719c7af66c5fb912 assets/hemalurgy/models/item/tin_spike.json
-4b5e98d81c3030756696a6f333cd4d0b36b3c2ba data/curios/tags/items/curio.json
+15fd1eb2ae6780a9e6991a5590c1e3d9b9cb684f data/curios/tags/items/curio.json
 87b22b17c0eb38a6b36ac777fd788fde8a8d8c9e data/hemalurgy/advancements/main/blank.json
 06ddfb15e187af827dab5ca17fedf3fdd63d86b3 data/hemalurgy/advancements/main/obtained_guide.json
 6cc29dc10d826270249299251155c28e6cf4bb61 data/hemalurgy/advancements/main/root.json
+2af9e6cb56a9d7436c837fb7796878b035ead1aa data/hemalurgy/advancements/recipes/hemalurgy.items/aluminum_spike.json
 1bc13ebe9700e8daf083a2ce7117b025913736b7 data/hemalurgy/advancements/recipes/hemalurgy.items/bendalloy_spike.json
 02a107e6b0259cd9d0df1f8585cb7c7f925d9e71 data/hemalurgy/advancements/recipes/hemalurgy.items/brass_spike.json
 1b94ba282e0bf9a73904bfaea6969d98793b993f data/hemalurgy/advancements/recipes/hemalurgy.items/bronze_spike.json
@@ -31,6 +33,7 @@ a2cba1b324557d6f7fa0702b1aa5cf28d13e0a09 data/hemalurgy/advancements/recipes/hem
 14fb7f4c4c275d66c663df44182c39959c28b0c5 data/hemalurgy/patchouli_books/guide/en_us/categories/category.basics.json
 299f092a062eaf7bfec658b5c71ea3b7bce40bc2 data/hemalurgy/patchouli_books/guide/en_us/entries/category.basics/entry.guide.json
 f5175f01d1c622f094f7b66d115dfc5e7d36b34b data/hemalurgy/patchouli_books/guide/en_us/entries/category.basics/entry.welcome.json
+1742a37006fef75ad56a693253b483f0d45758dc data/hemalurgy/recipes/aluminum_spike.json
 d8963be2b7c7ed53d02f341706d8223f38f15f4e data/hemalurgy/recipes/bendalloy_spike.json
 6e6b008d29539ff0bdf2787a4f522ea2f36b97dc data/hemalurgy/recipes/brass_spike.json
 f15feb8c3d85126696cb98da6bc6a16779765058 data/hemalurgy/recipes/bronze_spike.json

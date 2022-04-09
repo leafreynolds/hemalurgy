@@ -81,7 +81,7 @@ public interface IHemalurgicInfo
         }
 
         List<Metal> allomancerPowersFound = new ArrayList<>();
-        entityKilled.getCapability(com.legobmw99.allomancy.modules.powers.data.AllomancerCapability.PLAYER_CAP).ifPresent((iAllomancerData) ->
+        MetalHelper.getAllomancerData(entityKilled).ifPresent((iAllomancerData) ->
         {
             for (Metal metalType : Metal.values())
             {
@@ -92,7 +92,7 @@ public interface IHemalurgicInfo
             }
         });
         List<Metal> feruchemistPowersFound = new ArrayList<>();
-        entityKilled.getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP).ifPresent((iFeruchemistData) ->
+        MetalHelper.getFeruchemistData(entityKilled).ifPresent((iFeruchemistData) ->
         {
             for (Metal metalType : Metal.values())
             {
@@ -122,11 +122,8 @@ public interface IHemalurgicInfo
                     if (metal.isPresent())
                     {
                         Invest(stack, MetalHelper.getPowerName(spikeMetalType, metal.get()), 10, entityKilled.getUUID());
-                        entityKilled.getCapability(com.legobmw99.allomancy.modules.powers.data.AllomancerCapability.PLAYER_CAP).ifPresent((iAllomancerData) ->
-                        {
-                            iAllomancerData.revokePower(metal.get());
-                            com.legobmw99.allomancy.network.Network.sync((Player) entityKilled);
-                        });
+                        MetalHelper.SetPlayerAllomancyPower(entityKilled, metal.get(), false);
+                        MetalHelper.SyncPlayer(entityKilled);
                     }
                 }
             }
@@ -139,11 +136,8 @@ public interface IHemalurgicInfo
                     if (metal.isPresent())
                     {
                         Invest(stack, MetalHelper.getPowerName(spikeMetalType, metal.get()), 10, entityKilled.getUUID());
-                        entityKilled.getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP).ifPresent((iFeruchemistData) ->
-                        {
-                            iFeruchemistData.revokePower(metal.get());
-                            com.example.feruchemy.network.NetworkUtil.sync((Player) entityKilled);
-                        });
+                        MetalHelper.SetPlayerFeruchemyPower(entityKilled, metal.get(),false);
+                        MetalHelper.SyncPlayer(entityKilled);
                     }
                 }
             }
@@ -283,6 +277,12 @@ public interface IHemalurgicInfo
         CompoundTag spikeInfo = getHemalurgicInfo(stack);
         CompoundNBTHelper.setDouble(spikeInfo, power, (double) Math.round(level * 100) / 100);//round off, so we don't get things like 1.1233333337
         StackNBTHelper.setUuid(stack, stolen_identity_tag, identity);
+    }
+
+    default void Divest(ItemStack stack)
+    {
+        StackNBTHelper.removeEntry(stack, "hemalurgy");
+        StackNBTHelper.removeEntry(stack, stolen_identity_tag);
     }
 }
 

@@ -4,8 +4,10 @@
 
 package leaf.hemalurgy.utils;
 
+import com.legobmw99.allomancy.api.data.IAllomancerData;
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.registry.AttributesRegistry;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -15,9 +17,12 @@ import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.util.LazyOptional;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 
 public class MetalHelper
 {
@@ -38,9 +43,9 @@ public class MetalHelper
             case BENDALLOY:
             case GOLD:
             case CHROMIUM:
+	        case ALUMINUM:
                 return true;
             case ZINC:
-            case ALUMINUM:
             case DURALUMIN:
             case NICROSIL:
             default:
@@ -246,5 +251,82 @@ public class MetalHelper
                             Metal.DURALUMIN);
                     default -> null;
                 };
+    }
+
+    public static void SyncPlayer(Entity entity)
+    {
+        if (entity instanceof Player)
+        {
+            com.legobmw99.allomancy.network.Network.sync((Player) entity);
+            com.example.feruchemy.network.NetworkUtil.sync((Player) entity);
+        }
+    }
+
+    public static void SetPlayerAllomancyPower(LivingEntity entity, Metal power, boolean givePower)
+    {
+        getAllomancerData(entity).ifPresent((iAllomancerData) ->
+        {
+            if (givePower)
+            {
+                iAllomancerData.addPower(power);
+            }
+            else
+            {
+                iAllomancerData.revokePower(power);
+            }
+        });
+
+    }
+
+    public static void SetPlayerFeruchemyPower(LivingEntity entity, Metal power, boolean givePower)
+    {
+        getFeruchemistData(entity).ifPresent((iFeruchemistData) ->
+        {
+            if (givePower)
+            {
+                iFeruchemistData.addPower(power);
+            }
+            else
+            {
+                iFeruchemistData.revokePower(power);
+            }
+        });
+    }
+
+    public static boolean HasAllomancyPower(LivingEntity entity, Metal power)
+    {
+        LazyOptional<IAllomancerData> allomancerData = getAllomancerData(entity);
+        if (allomancerData.isPresent())
+        {
+            //kinda weird way to do it, just to return value
+            final Optional<IAllomancerData> resolve = allomancerData.resolve();
+            return resolve.isPresent() && resolve.get().hasPower(power);
+        }
+        return false;
+    }
+
+    public static boolean HasFeruchemyPower(LivingEntity entity, Metal power)
+    {
+        if (entity instanceof Player)
+        {
+            return com.example.feruchemy.caps.FeruchemyCapability.forPlayer(entity).hasPower(power);
+        }
+        return false;
+    }
+
+
+    @Nonnull
+    public static LazyOptional<com.legobmw99.allomancy.api.data.IAllomancerData> getAllomancerData(LivingEntity entity)
+    {
+        return entity != null ? entity.getCapability(com.legobmw99.allomancy.modules.powers.data.AllomancerCapability.PLAYER_CAP, null)
+                              : LazyOptional.empty();
+    }
+
+
+    @Nonnull
+    public static LazyOptional<com.example.feruchemy.caps.FeruchemyCapability> getFeruchemistData(LivingEntity entity)
+    {
+        return entity != null ? entity.getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP, null)
+                              : LazyOptional.empty();
     }
 }

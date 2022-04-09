@@ -9,9 +9,6 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
-import leaf.hemalurgy.compat.curios.CuriosCompat;
-import leaf.hemalurgy.compat.curios.HemalurgyCurios;
-import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.properties.PropTypes;
 import leaf.hemalurgy.utils.LogHelper;
 import leaf.hemalurgy.utils.MetalHelper;
@@ -28,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.Mod;
@@ -245,11 +243,32 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
             //then do hemalurgy spike logic
             //hurt the user
             //spiritweb attributes are handled in metalmind
-            slotContext.getWearer().hurt(SPIKED, 4);
+            final LivingEntity entity = slotContext.entity();
+            entity.hurt(SPIKED, 4);
+            boolean runSync = false;
 
             for (Metal stealType : Metal.values())
             {
-                if (hasHemalurgicPower(stack, this.getMetalType(), stealType))
+                if (getMetalType() == Metal.ALUMINUM)
+                {
+                    Divest(stack);
+
+                    if (MetalHelper.HasAllomancyPower(entity, stealType))
+                    {
+                        //steel as a stand in for any allomancer power
+                        Invest(stack, MetalHelper.getPowerName(Metal.STEEL, stealType),10, entity.getUUID());
+                        MetalHelper.SetPlayerAllomancyPower(entity, stealType, false);
+                        runSync = true;
+                    }
+                    if (MetalHelper.HasFeruchemyPower(entity, stealType))
+                    {
+                        //pewter as a stand in for any feruchemist power
+                        Invest(stack, MetalHelper.getPowerName(Metal.PEWTER, stealType),10, entity.getUUID());
+                        MetalHelper.SetPlayerFeruchemyPower(entity, stealType, false);
+                        runSync = true;
+                    }
+                }
+                else if (hasHemalurgicPower(stack, this.getMetalType(), stealType))
                 {
 
                     switch (this.getMetalType())
@@ -259,25 +278,24 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                         case BRONZE:
                         case CADMIUM:
                         case ELECTRUM:
-                            slotContext.entity().getCapability(com.legobmw99.allomancy.modules.powers.data.AllomancerCapability.PLAYER_CAP).ifPresent((iAllomancerData) ->
-                            {
-                                iAllomancerData.addPower(stealType);
-                                com.legobmw99.allomancy.network.Network.sync((Player) slotContext.entity());
-                            });
+                            MetalHelper.SetPlayerAllomancyPower(entity, stealType, true);
+                            runSync = true;
                             break;
                         //steals feruchemical abilities
                         case PEWTER:
                         case BRASS:
                         case BENDALLOY:
                         case GOLD:
-                            slotContext.entity().getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP).ifPresent((iFeruchemistData) ->
-                            {
-                                iFeruchemistData.addPower(stealType);
-                                com.example.feruchemy.network.NetworkUtil.sync((Player) slotContext.entity());
-                            });
+                            MetalHelper.SetPlayerFeruchemyPower(entity, stealType, true);
+                            runSync = true;
                             break;
                     }
                 }
+            }
+
+            if (runSync)
+            {
+                MetalHelper.SyncPlayer(entity);
             }
         }
 
@@ -286,11 +304,27 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack)
     {
-        slotContext.getWearer().hurt(SPIKED, 4);
+        final LivingEntity entity = slotContext.entity();
+        entity.hurt(SPIKED, 4);
+        boolean runSync = false;
 
         for (Metal stealType : Metal.values())
         {
-            if (hasHemalurgicPower(stack, this.getMetalType(), stealType))
+            if (getMetalType() == Metal.ALUMINUM)
+            {
+                if (hasHemalurgicPower(stack, Metal.STEEL, stealType))
+                {
+                    MetalHelper.SetPlayerAllomancyPower(entity, stealType, true);
+                    runSync = true;
+                }
+                if (hasHemalurgicPower(stack, Metal.PEWTER, stealType))
+                {
+                    MetalHelper.SetPlayerFeruchemyPower(entity, stealType, true);
+                    runSync = true;
+                }
+
+            }
+            else if (hasHemalurgicPower(stack, this.getMetalType(), stealType))
             {
                 switch (this.getMetalType())
                 {
@@ -299,25 +333,59 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                     case BRONZE:
                     case CADMIUM:
                     case ELECTRUM:
-                        slotContext.entity().getCapability(com.legobmw99.allomancy.modules.powers.data.AllomancerCapability.PLAYER_CAP).ifPresent((iAllomancerData) ->
-                        {
-                            iAllomancerData.revokePower(stealType);
-                            com.legobmw99.allomancy.network.Network.sync((Player) slotContext.entity());
-                        });
+                        MetalHelper.SetPlayerAllomancyPower(entity,stealType,false);
+                        runSync = true;
                         break;
                     //steals feruchemical abilities
                     case PEWTER:
                     case BRASS:
                     case BENDALLOY:
                     case GOLD:
-                        slotContext.entity().getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP).ifPresent((iFeruchemistData) ->
-                        {
-                            iFeruchemistData.revokePower(stealType);
-                            com.example.feruchemy.network.NetworkUtil.sync((Player) slotContext.entity());
-                        });
+                        MetalHelper.SetPlayerFeruchemyPower(entity,stealType,false);
+                        runSync = true;
                         break;
                 }
             }
+        }
+
+        if (getMetalType() == Metal.ALUMINUM)
+        {
+            //SO apparently the item is already copied at this point, so updating the stack does nothing.
+            //Divest(stack);
+            final Player player = (Player) entity;
+            //instead lets get what the menu has said it's carrying
+            final ItemStack carried = player.containerMenu.getCarried();
+
+            if (carried.getItem() instanceof HemalurgicSpikeItem)
+            {
+                //divest that
+                Divest(carried);
+                //then update, just incase it's still going to be dumb.
+                player.containerMenu.setCarried(carried);
+                player.containerMenu.setRemoteCarried(carried);
+            }
+            // this doesn't account for items that are moved via shift click
+            //so I guess we check inventory too.
+            else
+            {
+                //scorched earth policy
+                for (ItemStack itemStack : player.getInventory().items)
+                {
+                    if (itemStack.getItem() instanceof HemalurgicSpikeItem)
+                    {
+                        final HemalurgicSpikeItem item = (HemalurgicSpikeItem) itemStack.getItem();
+                        if (item.getMetalType() == getMetalType())
+                        {
+                            Divest(itemStack);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (runSync)
+        {
+            MetalHelper.SyncPlayer(entity);
         }
     }
 }
