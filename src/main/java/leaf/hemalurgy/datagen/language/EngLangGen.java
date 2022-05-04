@@ -8,10 +8,15 @@ import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
 import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.items.HemalurgyItemGroups;
+import leaf.hemalurgy.utils.LogHelper;
 import leaf.hemalurgy.utils.MetalHelper;
 import leaf.hemalurgy.utils.StringHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -61,9 +66,10 @@ public class EngLangGen extends LanguageProvider
         //Entities
         for (EntityType<?> type : ForgeRegistries.ENTITIES)
         {
+            final String value = StringHelper.fixCapitalisation(type.getRegistryName().getPath());
             if (type.getRegistryName().getNamespace().equals(Hemalurgy.MODID))
             {
-                add(type.getDescriptionId(), StringHelper.fixCapitalisation(type.getRegistryName().getPath()));
+                add(type.getDescriptionId(), value);
             }
         }
 

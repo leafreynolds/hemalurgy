@@ -44,6 +44,9 @@ public class ItemsRegistry
                                     () -> createItem(new HemalurgicSpikeItem(type))
                             )));
 
+    //Spike Guns?
+    //https://wob.coppermind.net/events/390-stuttgart-signing/#e12677
+
     private static <T extends net.minecraft.world.item.Item> T createItem(T item)
     {
         return item;
