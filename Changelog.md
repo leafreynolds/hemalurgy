@@ -3,6 +3,9 @@
 ### B3
 
 Hemalurgic Tin spikes implemented.
+Hemalurgic Copper spikes implemented.
+Hemalurgic Chromium spikes implemented.
+Hemalurgic Aluminum spikes implemented. Introduces known bug where relogging with no powers causes allomancy to gift new powers.
 
 ### B2
 
