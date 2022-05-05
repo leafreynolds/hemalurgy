@@ -1,5 +1,10 @@
 ## Hemalurgy - For 1.18.1 Minecraft
 
+### B4 
+
+Fixing crash in spike "canEquip" function that occurs when finding curios that are not spikes.
+
+
 ### B3
 
 Hemalurgic Tin spikes implemented.
