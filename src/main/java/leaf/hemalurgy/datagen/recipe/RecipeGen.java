@@ -12,6 +12,7 @@ import leaf.hemalurgy.utils.ResourceLocationHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -47,7 +48,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder
             if (ItemsRegistry.METAL_SPIKE.containsKey(metalType))
             {
                 HemalurgicSpikeItem spikeItem = (HemalurgicSpikeItem) ItemsRegistry.METAL_SPIKE.get(metalType).get();
-                final Tag.Named<Item> metalIngotTag = TagsRegistry.Items.METAL_INGOT_TAGS.get(metalType);
+                final TagKey<Item> metalIngotTag = TagsRegistry.Items.METAL_INGOT_TAGS.get(metalType);
                 ShapedRecipeBuilder
                         .shaped(spikeItem)
                         .define('X', metalIngotTag)
@@ -63,7 +64,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder
     }
 
 
-    protected static void addBasicArmorRecipes(Consumer<FinishedRecipe> consumer, Tag<Item> inputMaterial, @Nullable Item head, @Nullable Item chest, @Nullable Item legs, @Nullable Item feet)
+    protected static void addBasicArmorRecipes(Consumer<FinishedRecipe> consumer, TagKey<Item> inputMaterial, @Nullable Item head, @Nullable Item chest, @Nullable Item legs, @Nullable Item feet)
     {
         if (head != null)
         {
@@ -83,7 +84,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder
         }
     }
 
-    private void decompressRecipe(Consumer<FinishedRecipe> consumer, ItemLike output, Tag<Item> input, String name)
+    private void decompressRecipe(Consumer<FinishedRecipe> consumer, ItemLike output, TagKey<Item> input, String name)
     {
         ShapelessRecipeBuilder.shapeless(output, 9)
                 .unlockedBy("has_item", has(output))
@@ -91,7 +92,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder
                 .save(consumer, ResourceLocationHelper.prefix("conversions/" + name));
     }
 
-    private ShapedRecipeBuilder compressRecipe(ItemLike output, Tag<Item> input)
+    private ShapedRecipeBuilder compressRecipe(ItemLike output, TagKey<Item> input)
     {
         return ShapedRecipeBuilder.shaped(output)
                 .define('I', input)

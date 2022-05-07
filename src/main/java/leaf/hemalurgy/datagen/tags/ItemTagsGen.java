@@ -6,13 +6,13 @@ package leaf.hemalurgy.datagen.tags;
 
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
-import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.ItemsRegistry;
 import leaf.hemalurgy.registry.TagsRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -33,18 +33,18 @@ public class ItemTagsGen extends ItemTagsProvider
             if (ItemsRegistry.METAL_SPIKE.containsKey(metalType))
             {
                 final Item item = ItemsRegistry.METAL_SPIKE.get(metalType).get();
-                final Tag.Named<Item> curioAny = TagsRegistry.Items.CURIO_ANY;
+                final TagKey<Item> curioAny = TagsRegistry.Items.CURIO_ANY;
                 add(curioAny, item);
             }
         }
     }
 
-    public void add(Tag.Named<Item> branch, Item item)
+    public void add(TagKey<Item> branch, Item item)
     {
         this.tag(branch).add(item);
     }
 
-    public void add(Tag.Named<Item> branch, Item... item)
+    public void add(TagKey<Item> branch, Item... item)
     {
         this.tag(branch).add(item);
     }
