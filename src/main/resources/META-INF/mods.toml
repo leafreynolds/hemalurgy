@@ -1,6 +1,6 @@
 
 modLoader="javafml" #mandatory
-loaderVersion="[39,)" #mandatory
+loaderVersion="[40,)" #mandatory
 license="Hemalurgy License"
 
 [[mods]] #mandatory
@@ -17,4 +17,4 @@ This is a long form description of the mod. You can write whatever you want here
 [[dependencies.hemalurgy]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[39.0.44,)"
+    versionRange="[40,)"
