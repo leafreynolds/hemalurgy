@@ -4,57 +4,36 @@
 
 package leaf.hemalurgy.utils;
 
-import leaf.hemalurgy.Hemalurgy;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.mojang.logging.LogUtils;
+import org.slf4j.Logger;
 
 public class LogHelper
 {
-    public static Logger LOGGER = LogManager.getLogger(Hemalurgy.MODID);
+    public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static void log(Level logLevel, Object object)
+
+    public static void debug(String object)
     {
-        LOGGER.log(logLevel, String.valueOf(object));
+        LOGGER.debug(object);
     }
 
-    public static void all(Object object)
+    public static void error(String object)
     {
-        log(Level.ALL, object);
+        LOGGER.error(object);
     }
 
-    public static void debug(Object object)
+    public static void info(String object)
     {
-        log(Level.DEBUG, object);
+        LOGGER.info(object);
     }
 
-    public static void error(Object object)
+    public static void trace(String object)
     {
-        log(Level.ERROR, object);
+        LOGGER.trace(object);
     }
 
-    public static void fatal(Object object)
+    public static void warn(String object)
     {
-        log(Level.FATAL, object);
-    }
-
-    public static void info(Object object)
-    {
-        log(Level.INFO, object);
-    }
-
-    public static void off(Object object)
-    {
-        log(Level.OFF, object);
-    }
-
-    public static void trace(Object object)
-    {
-        log(Level.TRACE, object);
-    }
-
-    public static void warn(Object object)
-    {
-        log(Level.WARN, object);
+        LOGGER.warn(object);
     }
 }
