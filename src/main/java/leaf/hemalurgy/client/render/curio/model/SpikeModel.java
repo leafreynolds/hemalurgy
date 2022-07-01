@@ -7,6 +7,7 @@ package leaf.hemalurgy.client.render.curio.model;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import leaf.hemalurgy.capability.entity.SpiritwebCapability;
 import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.utils.MetalHelper;
 import leaf.hemalurgy.utils.ResourceLocationHelper;
@@ -293,9 +294,9 @@ public class SpikeModel extends HumanoidModel<LivingEntity>
                 eyeRight.visible  = !leftHandSide;
 
                 //todo eye positioning
-                //SpiritwebCapability.get(slotContext.entity()).ifPresent((data)->{
-                //    eyeRoot.y = data.getEyeHeight();
-                //});
+                SpiritwebCapability.get(slotContext.entity()).ifPresent((data)->{
+                    eyeRoot.y = data.getEyeHeight();
+                });
 
                 //we can call render on the head directly, since we have made other spike not visible.
                 //we do this so that we can use the eye height and have it follow proper head rotations

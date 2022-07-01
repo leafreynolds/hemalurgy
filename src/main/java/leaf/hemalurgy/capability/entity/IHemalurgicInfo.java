@@ -1,12 +1,13 @@
 /*
- * File created ~ 24 - 4 - 2021 ~ Leaf
+ * File created ~ 1 - 7 - 2022 ~Leaf
  */
 
-package leaf.hemalurgy.items;
+package leaf.hemalurgy.capability.entity;
 
 import com.google.common.collect.Multimap;
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.constants.Constants;
+import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.AttributesRegistry;
 import leaf.hemalurgy.utils.*;
 import net.minecraft.nbt.CompoundTag;

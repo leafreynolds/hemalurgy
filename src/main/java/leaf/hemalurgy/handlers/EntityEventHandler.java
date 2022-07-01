@@ -6,13 +6,18 @@ package leaf.hemalurgy.handlers;
 
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
+import leaf.hemalurgy.api.ISpiritweb;
+import leaf.hemalurgy.capability.entity.SpiritwebCapability;
 import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.AttributesRegistry;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -40,29 +45,41 @@ public class EntityEventHandler
     }
 
     @SubscribeEvent
+    public static void attachEntityCapabilities(AttachCapabilitiesEvent<Entity> event)
+    {
+        SpiritwebCapability.attachEntityCapabilities(event);
+    }
+
+    @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event)
     {
         event.getOriginal().revive();
 
-        for (Metal metalType : Metal.values())
-        {
-            //check for others
-            final RegistryObject<Attribute> metalRelatedAttribute = AttributesRegistry.COSMERE_ATTRIBUTES.get(metalType.getName());
-            if (metalRelatedAttribute != null && metalRelatedAttribute.isPresent())
-            {
-                AttributeInstance oldPlayerAttribute = event.getOriginal().getAttribute(metalRelatedAttribute.get());
-                AttributeInstance newPlayerAttribute = event.getPlayer().getAttribute(metalRelatedAttribute.get());
-
-                if (newPlayerAttribute != null && oldPlayerAttribute != null)
+        SpiritwebCapability.get(event.getOriginal()).ifPresent((oldSpiritWeb) ->
+                SpiritwebCapability.get(event.getPlayer()).ifPresent((newSpiritWeb) ->
                 {
-                    newPlayerAttribute.setBaseValue(oldPlayerAttribute.getBaseValue());
-                }
-
-            }
-        }
+                    //copy across anything from the old player
+                    //things like eye height and attributes
+                    newSpiritWeb.transferFrom(oldSpiritWeb);
+                }));
 
     }
 
+    @SubscribeEvent
+    public static void onTrackPlayer(PlayerEvent.StartTracking startTracking)
+    {
+        SpiritwebCapability.get(startTracking.getPlayer()).ifPresent(cap ->
+        {
+            cap.syncToClients(null);
+        });
+    }
+
+
+    @SubscribeEvent
+    public static void onLivingTick(LivingEvent.LivingUpdateEvent event)
+    {
+        SpiritwebCapability.get(event.getEntityLiving()).ifPresent(ISpiritweb::tick);
+    }
 
     @SubscribeEvent
     public void onXPChange(PlayerXpEvent.XpChange event)

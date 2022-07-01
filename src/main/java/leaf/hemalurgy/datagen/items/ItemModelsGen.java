@@ -5,6 +5,7 @@
 package leaf.hemalurgy.datagen.items;
 
 import leaf.hemalurgy.Hemalurgy;
+import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.ItemsRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +38,13 @@ public class ItemModelsGen extends ItemModelProvider
             //blocks have their own model rules
             if (item instanceof BlockItem)
             {
+                continue;
+            }
+            else if (item instanceof HemalurgicSpikeItem)
+            {
+                this.getBuilder(path)
+                        .parent(new ModelFile.UncheckedModelFile("hemalurgy:item/spike"))
+                        .texture("layer0", modLoc("item/" + "metal_spike"));
                 continue;
             }
 

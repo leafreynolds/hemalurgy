@@ -4,14 +4,19 @@
 
 package leaf.hemalurgy;
 
+import leaf.hemalurgy.api.ISpiritweb;
 import leaf.hemalurgy.compat.curios.CuriosCompat;
 import leaf.hemalurgy.compat.patchouli.PatchouliCompat;
+import leaf.hemalurgy.handlers.ColorHandler;
+import leaf.hemalurgy.network.Network;
 import leaf.hemalurgy.registry.AttributesRegistry;
 import leaf.hemalurgy.registry.ItemsRegistry;
+import leaf.hemalurgy.registry.LootFunctionRegistry;
 import leaf.hemalurgy.utils.LogHelper;
 import leaf.hemalurgy.utils.ResourceLocationHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -32,26 +37,16 @@ public class Hemalurgy
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(this::loadComplete);
-
-        //DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init));
-        //DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::registerIconTextures));
-        //DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::retrieveRegisteredIconSprites));
+        modBus.addListener(this::onAddCaps);
 
 
         MinecraftForge.EVENT_BUS.register(this);
 
         //Register our deferred registries
         ItemsRegistry.ITEMS.register(modBus);
-        //EffectsRegistry.EFFECTS.register(modBus);
-        //LootModifierRegistry.LOOT_MODIFIERS.register(modBus);
         AttributesRegistry.ATTRIBUTES.register(modBus);
-        //EntityRegistry.ENTITIES.register(modBus);
 
-        //FeatureRegistry.FEATURES.register(modBus);
-        //RecipeRegistry.SPECIAL_RECIPES.register(modBus);
-
-        //AdvancementTriggerRegistry.init();
-
+        Network.init();
 
         // init cross mod compatibility stuff, if relevant
         CuriosCompat.init();
@@ -64,6 +59,7 @@ public class Hemalurgy
         {
             //FeatureRegistry.registerConfiguredFeatures();
             //EntityRegistry.PrepareEntityAttributes();
+            LootFunctionRegistry.Register();
 
         });
 
@@ -73,11 +69,16 @@ public class Hemalurgy
         LogHelper.info("Common setup complete!");
     }
 
+    private void onAddCaps(RegisterCapabilitiesEvent capabilitiesEvent)
+    {
+        capabilitiesEvent.register(ISpiritweb.class);
+    }
+
     private void loadComplete(FMLLoadCompleteEvent event)
     {
         event.enqueueWork(() ->
         {
-            //ColorHandler.init();
+            ColorHandler.init();
         });
     }
 
