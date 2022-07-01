@@ -4,6 +4,7 @@
 
 package leaf.hemalurgy.compat.curios;
 
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
@@ -15,61 +16,53 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 
 public class CuriosCompat
 {
-    private static boolean curiosModDetected;
+	private static boolean curiosModDetected;
 
 
-    public static boolean CuriosIsPresent()
-    {
-        return curiosModDetected;
-    }
+	public static boolean CuriosIsPresent()
+	{
+		return curiosModDetected;
+	}
 
-    public static void init()
-    {
-        curiosModDetected = ModList.get().isLoaded("curios");
+	public static void init()
+	{
+		curiosModDetected = ModList.get().isLoaded("curios");
 
-        if (!curiosModDetected)
-        {
-            return;
-        }
+		if (!curiosModDetected)
+		{
+			return;
+		}
 
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modBus.addListener(CuriosCompat::onEnqueueIMC);
-    }
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modBus.addListener(CuriosCompat::onEnqueueIMC);
+	}
 
-    private static void onEnqueueIMC(InterModEnqueueEvent event)
-    {
-        if (!curiosModDetected)
-        {
-            return;
-        }
+	private static void onEnqueueIMC(InterModEnqueueEvent event)
+	{
+		if (!curiosModDetected)
+		{
+			return;
+		}
 
-        for (SlotTypePreset slotType : SlotTypePreset.values())
-        {
-            int numberOfSlotsWanted = 0;
-            switch (slotType)
-            {
-                case NECKLACE:
-                    numberOfSlotsWanted = 1;
-                    break;
-                case HEAD:
-                case BACK:
-                case HANDS:
-                case BRACELET:
-                    numberOfSlotsWanted = 2;
-                    break;
-                case CURIO:
-                    numberOfSlotsWanted = 4;
-                    break;
-            }
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BACK.getMessageBuilder().build());
 
-            if (numberOfSlotsWanted > 0)
-            {
-                int finalNumberOfSlotsWanted = numberOfSlotsWanted;
-                InterModComms.sendTo(CuriosApi.MODID,
-                        SlotTypeMessage.REGISTER_TYPE,
-                        () -> slotType.getMessageBuilder().size(finalNumberOfSlotsWanted).build());
-            }
-        }
+		SlotTypePreset[] twoSlot = {
+				SlotTypePreset.HEAD,
+				SlotTypePreset.HANDS,
+				SlotTypePreset.BODY,
+		};
 
-    }
+		for (SlotTypePreset type : twoSlot)
+		{
+			InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> type.getMessageBuilder().size(2).build());
+		}
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BRACELET.getMessageBuilder().size(4).build());
+
+		//custom slots
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("legs").priority(450).size(2).icon(InventoryMenu.EMPTY_ARMOR_SLOT_LEGGINGS).build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("feet").priority(500).size(2).icon(InventoryMenu.EMPTY_ARMOR_SLOT_BOOTS).build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("lynchpin").priority(59).size(1).icon(InventoryMenu.EMPTY_ARMOR_SLOT_HELMET).build());
+
+
+	}
 }

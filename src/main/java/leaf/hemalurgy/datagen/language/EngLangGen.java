@@ -97,6 +97,14 @@ public class EngLangGen extends LanguageProvider
         add(Constants.StringKeys.PATCHOULI_NOT_INSTALLED, "Patchouli is not installed");
         add(Constants.StringKeys.CONTAINED_POWERS_FOUND, "Hemalurgic Charge:");
 
+        add("tooltip.cosmere.attribute.iron","+%s Attack Damage");
+        add("tooltip.cosmere.attribute.tin","+%s%% Better Night Vision");
+        add("tooltip.cosmere.attribute.copper","+%s%% XP");
+        add("tooltip.cosmere.attribute.zinc","+%s%% Emotional Fortitude");
+        add("tooltip.cosmere.attribute.duralumin","");//todo hemalurgic connection/identity
+        add("tooltip.cosmere.attribute.chromium","+%s%% Luck");
+        add("tooltip.cosmere.attribute.nicrosil","");//todo hemalurgic investiture
+
         for(Metal spikeMetal : Metal.values())
         {
             if (MetalHelper.isMetalSpikeAvailable(spikeMetal))

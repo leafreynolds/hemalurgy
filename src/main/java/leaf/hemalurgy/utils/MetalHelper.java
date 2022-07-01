@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
@@ -335,5 +336,71 @@ public class MetalHelper
 	{
 		return entity != null ? entity.getCapability(com.example.feruchemy.caps.FeruchemyCapability.FERUCHEMY_CAP, null)
 		                      : LazyOptional.empty();
+	}
+
+	public static Color getColor(Metal metalType)
+	{
+		switch (metalType)
+		{
+			default:
+			case IRON:
+				return MetalColor.IRON;
+			case STEEL:
+				return MetalColor.STEEL;
+			case TIN:
+				return MetalColor.TIN;
+			case PEWTER:
+				return MetalColor.PEWTER;
+			case ALUMINUM:
+				return MetalColor.ALUMINUM;
+			case DURALUMIN:
+				return MetalColor.DURALUMIN;
+			case CHROMIUM:
+				return MetalColor.CHROMIUM;
+			case NICROSIL:
+				return MetalColor.NICROSIL;
+			case ZINC:
+				return MetalColor.ZINC;
+			case BRASS:
+				return MetalColor.BRASS;
+			case COPPER:
+				return MetalColor.COPPER;
+			case BRONZE:
+				return MetalColor.BRONZE;
+			case GOLD:
+				return MetalColor.GOLD;
+			case ELECTRUM:
+				return MetalColor.ELECTRUM;
+			case CADMIUM:
+				return MetalColor.CADMIUM;
+			case BENDALLOY:
+				return MetalColor.BENDALLOY;
+		}
+	}
+
+
+	private static class MetalColor
+	{
+
+		public static final Color IRON = Color.decode("#f2f2f2");
+		public static final Color STEEL = Color.decode("#727273");
+		public static final Color TIN = Color.decode("#79b7bc");
+		public static final Color PEWTER = Color.decode("#a39b90");
+
+		public static final Color ZINC = Color.decode("#d7d9c7");
+		public static final Color BRASS = Color.decode("#bc6330");
+		public static final Color COPPER = Color.decode("#fba634");
+		public static final Color BRONZE = Color.decode("#8c5b30");
+
+		public static final Color ALUMINUM = Color.decode("#d9d9d9");
+		public static final Color DURALUMIN = Color.decode("#a6a486");
+		public static final Color CHROMIUM = Color.decode("#595959");
+		public static final Color NICROSIL = Color.decode("#59503e");
+
+		public static final Color GOLD = Color.decode("#faf25e");
+		public static final Color ELECTRUM = Color.decode("#d9b166");
+		public static final Color CADMIUM = Color.decode("#F5926C");
+		public static final Color BENDALLOY = Color.decode("#46473e");
+
 	}
 }

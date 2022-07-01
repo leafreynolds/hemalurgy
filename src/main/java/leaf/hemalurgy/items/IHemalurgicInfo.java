@@ -260,7 +260,18 @@ public interface IHemalurgicInfo
         }
         else
         {
-            tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.getPowerName(hemalurgicSpikeItem.getMetalType())));
+            if (hasHemalurgicPower(stack, hemalurgicSpikeItem.getMetalType(), hemalurgicSpikeItem.getMetalType()))
+            {
+                double hemalurgicStrength = CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.getPowerName(hemalurgicSpikeItem.getMetalType()), 0);
+
+                if (hemalurgicSpikeItem.getMetalType() != Metal.IRON)
+                {
+                    hemalurgicStrength = hemalurgicStrength * 100;
+                }
+                double roundOff = (double) Math.round(hemalurgicStrength * 100) / 100;
+
+                tooltip.add(TextHelper.createTranslatedText("tooltip.cosmere.attribute." + hemalurgicSpikeItem.getMetalType().getName(), roundOff));
+            }
         }
 
     }

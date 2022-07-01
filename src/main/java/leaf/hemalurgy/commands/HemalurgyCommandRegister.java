@@ -10,20 +10,18 @@ package leaf.hemalurgy.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import leaf.hemalurgy.Hemalurgy;
+import leaf.hemalurgy.commands.subcommands.EyeCommand;
 import leaf.hemalurgy.commands.subcommands.HemalurgyCommand;
-import leaf.hemalurgy.commands.subcommands.TestCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
-
 public class HemalurgyCommandRegister
 {
-
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher)
-    {
-        dispatcher.register(Commands.literal(Hemalurgy.MODID)
-                .then(TestCommand.register(dispatcher))
-                .then(HemalurgyCommand.register(dispatcher))
-        );
-    }
+	public static void register(CommandDispatcher<CommandSourceStack> dispatcher)
+	{
+		dispatcher.register(Commands.literal(Hemalurgy.MODID)
+				.then(HemalurgyCommand.register(dispatcher))
+				.then(EyeCommand.register(dispatcher))
+		);
+	}
 }
