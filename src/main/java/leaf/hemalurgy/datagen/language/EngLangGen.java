@@ -87,6 +87,7 @@ public class EngLangGen extends LanguageProvider
         //Configs
 
         //Commands
+        add(Constants.StringKeys.SET_EYE_HEIGHT_SUCCESS, "Set eye height to %s");
 
 
         //Tooltips

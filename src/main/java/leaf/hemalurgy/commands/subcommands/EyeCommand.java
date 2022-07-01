@@ -9,6 +9,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import leaf.hemalurgy.capability.entity.SpiritwebCapability;
 import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.utils.TextHelper;
 import net.minecraft.commands.CommandSourceStack;
@@ -37,12 +38,11 @@ public class EyeCommand extends ModCommand
 
 		for (ServerPlayer player : players)
 		{
-			//todo eye height
-			//SpiritwebCapability.get(player).ifPresent((spiritweb) ->
-			//{
-			//	spiritweb.setEyeHeight(-value);
-			//	spiritweb.syncToClients(null);
-			//});
+			SpiritwebCapability.get(player).ifPresent((spiritweb) ->
+			{
+				spiritweb.setEyeHeight(-value);
+				spiritweb.syncToClients(null);
+			});
 		}
 
 		context.getSource().sendSuccess(TextHelper.createTranslatedText(Constants.StringKeys.SET_EYE_HEIGHT_SUCCESS, value), true);

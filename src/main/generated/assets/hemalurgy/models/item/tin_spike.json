@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "hemalurgy:item/spike",
   "textures": {
-    "layer0": "hemalurgy:item/tin_spike"
+    "layer0": "hemalurgy:item/metal_spike"
   }
 }
