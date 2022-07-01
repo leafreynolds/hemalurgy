@@ -1,15 +1,11 @@
 {
-  "name": "entry.welcome",
-  "category": "hemalurgy:category.basics",
+  "name": "Welcome",
+  "category": "hemalurgy:basics",
   "icon": "hemalurgy:guide",
   "pages": [
     {
       "type": "text",
       "text": "Hey, thanks for checking out this mod! This current iteration of Hemalurgy is very basic, with a low barrier of entry on purpose. $(p)There\u0027s some exciting stuff coming in future versions though, so I hope you\u0027ll stick around!"
-    },
-    {
-      "type": "text",
-      "text": "If you still aren\u0027t sure where to start, this book (as well as advancements) should help you find what the next step is. The book is set up to unlock new entries with every advancement completed."
     }
   ],
   "priority": true,

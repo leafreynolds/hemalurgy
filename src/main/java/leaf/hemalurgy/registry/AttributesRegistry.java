@@ -18,7 +18,7 @@ import java.util.Map;
 public class AttributesRegistry
 {
 	public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, Hemalurgy.MODID);
-	public static final Map<String, RegistryObject<Attribute>> COSMERE_ATTRIBUTES = makeAttributeMap();
+	public static final Map<String, RegistryObject<Attribute>> HEMALURGY_ATTRIBUTES = makeAttributeMap();
 
 	public static Map<String, RegistryObject<Attribute>> makeAttributeMap()
 	{

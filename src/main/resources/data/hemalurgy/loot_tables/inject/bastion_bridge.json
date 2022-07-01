@@ -1,0 +1,24 @@
+{
+  "__comment": "This table is injected as its own pool into minecraft:chests/bastion_bridge",
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 100,
+          "name": "hemalurgy:iron_spike",
+          "functions": [
+            {
+              "function": "hemalurgy:randomise_metaltype"
+            },
+            {
+              "function": "hemalurgy:invest_spike"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

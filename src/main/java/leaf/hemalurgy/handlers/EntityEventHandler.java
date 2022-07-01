@@ -89,7 +89,7 @@ public class EntityEventHandler
             return;
         }
 
-        RegistryObject<Attribute> xpGainRateAttribute = AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.COPPER.getName());
+        RegistryObject<Attribute> xpGainRateAttribute = AttributesRegistry.HEMALURGY_ATTRIBUTES.get(Metal.COPPER.getName());
         if (xpGainRateAttribute != null && xpGainRateAttribute.isPresent())
         {
             AttributeInstance attribute = event.getPlayer().getAttribute(xpGainRateAttribute.get());

@@ -58,7 +58,6 @@ public class InvestSpikeLootFunction extends LootItemConditionalFunction
 				? Optional.empty()
 				: hemalurgyStealWhitelist
 						.stream()
-						.filter(MetalHelper::isMetalSpikeAvailable)
 						.skip(lootContext.getRandom().nextInt(hemalurgyStealWhitelist.size()))
 						.findFirst();
 

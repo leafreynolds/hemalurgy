@@ -116,7 +116,7 @@ public class MetalHelper
 
 				if (killedEntity instanceof Player)
 				{
-					final AttributeInstance attribute = killedEntity.getAttribute(AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.COPPER.getName()).get());
+					final AttributeInstance attribute = killedEntity.getAttribute(AttributesRegistry.HEMALURGY_ATTRIBUTES.get(Metal.COPPER.getName()).get());
 					if (attribute != null)
 					{
 						//70% strength to spike

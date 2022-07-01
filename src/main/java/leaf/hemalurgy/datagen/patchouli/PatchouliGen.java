@@ -8,11 +8,12 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import leaf.hemalurgy.datagen.patchouli.categories.PatchouliBasics;
+import leaf.hemalurgy.datagen.patchouli.categories.PatchouliHemalurgy;
+import leaf.hemalurgy.utils.LogHelper;
+import leaf.hemalurgy.utils.StringHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,7 +27,6 @@ import java.util.function.Consumer;
 //
 public class PatchouliGen implements DataProvider
 {
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String GUIDE_NAME = "guide";
     private final DataGenerator generator;
@@ -80,7 +80,7 @@ public class PatchouliGen implements DataProvider
         //------------------------------------------//
 
         PatchouliBasics.collect(this.categories, this.entries);
-
+        PatchouliHemalurgy.collect(this.categories, this.entries);
 
     }
 
@@ -99,9 +99,10 @@ public class PatchouliGen implements DataProvider
                 try
                 {
                     DataProvider.save(GSON, cache, category.serialize(), path1);
-                } catch (IOException ioexception)
+                }
+                catch (IOException ioexception)
                 {
-                    LOGGER.error("Couldn't save page {}", path1, ioexception);
+                    LogHelper.LOGGER.error("Couldn't save page {}", path1, ioexception);
                 }
 
             }
@@ -123,9 +124,10 @@ public class PatchouliGen implements DataProvider
                 try
                 {
                     DataProvider.save(GSON, cache, entry.serialize(), path1);
-                } catch (IOException ioexception)
+                }
+                catch (IOException ioexception)
                 {
-                    LOGGER.error("Couldn't save page {}", path1, ioexception);
+                    LogHelper.LOGGER.error("Couldn't save page {}", path1, ioexception);
                 }
 
             }
@@ -138,7 +140,7 @@ public class PatchouliGen implements DataProvider
                 String.format(
                         "data/hemalurgy/patchouli_books/%s/en_us/categories/%s.json",
                         GUIDE_NAME,
-                        category.name));
+                        StringHelper.fixPath(category.name)));
     }
 
     private static Path getEntryPath(Path pathIn, BookStuff.Entry entry)
@@ -147,8 +149,8 @@ public class PatchouliGen implements DataProvider
                 String.format(
                         "data/hemalurgy/patchouli_books/%s/en_us/entries/%s/%s.json",
                         GUIDE_NAME,
-                        entry.category.name,
-                        entry.name));
+                        StringHelper.fixPath(entry.category.name),
+                        StringHelper.fixPath(entry.name)));
     }
 
     /**

@@ -21,7 +21,7 @@ public final class ColorHandler
 	{
 		ItemColors itemColors = Minecraft.getInstance().getItemColors();
 
-		ItemColor cosmereColourHandler =
+		ItemColor hemalurgyColourHandler =
 				(itemStack, tintIndex) -> tintIndex == 0
 				                          ? ((IHasColour) itemStack.getItem()).getColourValue()
 				                          : -1;
@@ -30,7 +30,7 @@ public final class ColorHandler
 		{
 			if (MetalHelper.isMetalSpikeAvailable(metalType))
 			{
-				itemColors.register(cosmereColourHandler, ItemsRegistry.METAL_SPIKE.get(metalType).get());
+				itemColors.register(hemalurgyColourHandler, ItemsRegistry.METAL_SPIKE.get(metalType).get());
 			}
 		}
 	}

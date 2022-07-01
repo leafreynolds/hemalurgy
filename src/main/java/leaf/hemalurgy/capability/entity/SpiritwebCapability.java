@@ -149,7 +149,7 @@ public class SpiritwebCapability implements ISpiritweb
 		for (Metal metalType : Metal.values())
 		{
 			//check for others
-			final RegistryObject<Attribute> metalRelatedAttribute = AttributesRegistry.COSMERE_ATTRIBUTES.get(metalType.getName());
+			final RegistryObject<Attribute> metalRelatedAttribute = AttributesRegistry.HEMALURGY_ATTRIBUTES.get(metalType.getName());
 			if (metalRelatedAttribute != null && metalRelatedAttribute.isPresent())
 			{
 				AttributeInstance oldPlayerAttribute = oldSpiritWeb.getLiving().getAttribute(metalRelatedAttribute.get());
