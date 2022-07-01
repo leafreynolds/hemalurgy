@@ -1,5 +1,11 @@
 ## Hemalurgy - For 1.18.1 Minecraft
 
+### B7
+
+Patchouli documentation
+Spikes show up in loot chests
+
+
 ### B5
 
 Curio spike renders on the player
