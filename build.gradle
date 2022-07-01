@@ -118,6 +118,11 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
+    flatDir {
+        dir 'libs'
+    }
+
     mavenCentral()
 }
 
@@ -141,7 +146,8 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:journeymap-32274:3621130")
 
     implementation fg.deobf("curse.maven:allomancy-256282:3782266")
-    implementation fg.deobf("curse.maven:feruchemy-allomancy-451618:3675746")
+    //implementation fg.deobf("curse.maven:feruchemy-allomancy-451618:3675746")
+    implementation fg.deobf("com.example.feruchemy:feruchemy-1.18.2:1.18.2")
     //implementation fg.deobf("curse.maven:ctm-267602:2642375")
 }
 
