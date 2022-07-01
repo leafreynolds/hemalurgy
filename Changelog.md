@@ -1,5 +1,11 @@
 ## Hemalurgy - For 1.18.1 Minecraft
 
+### B5
+
+Curio spike renders on the player
+Player can change eye spike height with /hemalurgy eyeHeight <0-3>
+
+
 ### B4 
 
 Fixing crash in spike "canEquip" function that occurs when finding curios that are not spikes.
