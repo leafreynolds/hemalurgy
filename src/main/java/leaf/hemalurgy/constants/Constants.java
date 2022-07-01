@@ -20,6 +20,7 @@ public class Constants
         public static final String SHIFT_CONTROL_ITEM_TOOLTIP = "tooltip.item.info.shift_control";
         public static final String CONTROL_ITEM_TOOLTIP = "tooltip.item.info.control";
 
+        public static final String SET_EYE_HEIGHT_SUCCESS = "command.cosmere.eyeheight.set.success";
 
     }
 
