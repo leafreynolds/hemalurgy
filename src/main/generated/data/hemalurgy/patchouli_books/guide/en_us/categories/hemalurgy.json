@@ -1,0 +1,7 @@
+{
+  "name": "Hemalurgy",
+  "description": "The forbidden field of magic that takes from others so that you may get stronger.",
+  "icon": "hemalurgy:steel_spike",
+  "sortnum": 3,
+  "secret": true
+}

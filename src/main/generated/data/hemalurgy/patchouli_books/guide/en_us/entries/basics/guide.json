@@ -1,6 +1,6 @@
 {
-  "name": "entry.guide",
-  "category": "hemalurgy:category.basics",
+  "name": "Guide",
+  "category": "hemalurgy:basics",
   "icon": "hemalurgy:guide",
   "pages": [
     {

@@ -27,7 +27,7 @@ public class LightTextureMixin
 			return prev;
 		}
 
-		AttributeInstance attribute = clientPlayer.getAttribute(AttributesRegistry.COSMERE_ATTRIBUTES.get(Metal.TIN.getName()).get());
+		AttributeInstance attribute = clientPlayer.getAttribute(AttributesRegistry.HEMALURGY_ATTRIBUTES.get(Metal.TIN.getName()).get());
 		//return modded val
 		return attribute != null ? (float) attribute.getValue() : prev;
 	}

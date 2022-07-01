@@ -24,7 +24,7 @@ public class ModBusEvents
         for (Metal metalType : Metal.values())
         {
             //check for others
-            final RegistryObject<Attribute> metalRelatedAttribute = AttributesRegistry.COSMERE_ATTRIBUTES.get(metalType.getName());
+            final RegistryObject<Attribute> metalRelatedAttribute = AttributesRegistry.HEMALURGY_ATTRIBUTES.get(metalType.getName());
             if (metalRelatedAttribute != null && metalRelatedAttribute.isPresent())
             {
                 //player only, because it doesn't make sense for mobs to have them.

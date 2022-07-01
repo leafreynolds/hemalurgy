@@ -1,0 +1,20 @@
+{
+  "name": "Hemalurgic Electrum",
+  "category": "hemalurgy:hemalurgy",
+  "icon": "hemalurgy:electrum_spike",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Electrum spikes steal the enhancement allomantic powers: $(p)Allomantically burning $(l:hemalurgy:allomancy/allomantic_aluminum)Aluminum$(), $(l:hemalurgy:allomancy/allomantic_duralumin)Duralumin$(), $(l:hemalurgy:allomancy/allomantic_chromium)Chromium$() and $(l:hemalurgy:allomancy/allomantic_nicrosil)Nicrosil$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "hemalurgy:electrum_spike",
+      "recipe2": ""
+    }
+  ],
+  "priority": false,
+  "secret": false,
+  "read_by_default": false,
+  "sortnum": 13
+}

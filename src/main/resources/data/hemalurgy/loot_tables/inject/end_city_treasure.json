@@ -1,0 +1,28 @@
+{
+  "__comment": "This table is injected as its own pool into minecraft:chests/end_city_treasure",
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 25,
+          "name": "hemalurgy:iron_spike",
+          "functions": [
+            {
+              "function": "hemalurgy:randomise_metaltype"
+            },
+            {
+              "function": "hemalurgy:invest_spike"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 75
+        }
+      ]
+    }
+  ]
+}

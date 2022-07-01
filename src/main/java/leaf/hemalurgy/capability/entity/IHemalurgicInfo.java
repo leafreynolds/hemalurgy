@@ -204,7 +204,7 @@ public interface IHemalurgicInfo
                 //Steals mental fortitude, memory, and intelligence
 
 
-                final RegistryObject<Attribute> attributeRegistryObject = AttributesRegistry.COSMERE_ATTRIBUTES.get(metalType.getName());
+                final RegistryObject<Attribute> attributeRegistryObject = AttributesRegistry.HEMALURGY_ATTRIBUTES.get(metalType.getName());
                 if (attributeRegistryObject != null && attributeRegistryObject.isPresent())
                 {
                     attribute = attributeRegistryObject.get();
@@ -271,7 +271,7 @@ public interface IHemalurgicInfo
                 }
                 double roundOff = (double) Math.round(hemalurgicStrength * 100) / 100;
 
-                tooltip.add(TextHelper.createTranslatedText("tooltip.cosmere.attribute." + hemalurgicSpikeItem.getMetalType().getName(), roundOff));
+                tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy.attribute." + hemalurgicSpikeItem.getMetalType().getName(), roundOff));
             }
         }
 
