@@ -145,10 +145,8 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:appleskin-248787:3626712")
     //runtimeOnly fg.deobf("curse.maven:journeymap-32274:3621130")
 
-    implementation fg.deobf("curse.maven:allomancy-256282:3782266")
-    //implementation fg.deobf("curse.maven:feruchemy-allomancy-451618:3675746")
-    implementation fg.deobf("com.example.feruchemy:feruchemy-1.18.2:1.18.2")
-    //implementation fg.deobf("curse.maven:ctm-267602:2642375")
+    implementation fg.deobf("curse.maven:allomancy-256282:3817080")
+    implementation fg.deobf("curse.maven:feruchemy-451618:3871859")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
