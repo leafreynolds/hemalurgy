@@ -46,8 +46,8 @@ public class MetalHelper
 			case BENDALLOY:
 			case GOLD:
 			case CHROMIUM:
-			case ALUMINUM:
 				return true;
+			case ALUMINUM:
 			case ZINC:
 			case DURALUMIN:
 			case NICROSIL:
