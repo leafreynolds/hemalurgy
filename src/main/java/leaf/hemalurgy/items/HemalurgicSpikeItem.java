@@ -236,13 +236,6 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
     }
 
     @Override
-    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack)
-    {
-        //has to be a conscious decision to stab yourself
-        return true;
-    }
-
-    @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack)
     {
         //todo better logic.
