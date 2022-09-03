@@ -162,7 +162,7 @@ public class MetalHelper
 
 				if (killedEntity instanceof Rabbit)
 				{
-					strengthToAdd = 0.77;
+					strengthToAdd = 0.2;
 				}
 				else if (killedEntity instanceof WitherSkeleton)
 				{
@@ -182,7 +182,7 @@ public class MetalHelper
 					}
 					else if (catType == Cat.TYPE_WHITE)
 					{
-						strengthToAdd = 0.35;
+						strengthToAdd = 1;
 					}
 				}
 				break;
