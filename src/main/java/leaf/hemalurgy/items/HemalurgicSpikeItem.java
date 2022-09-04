@@ -176,6 +176,13 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
         return super.isFoil(stack) || hemalurgicIdentityExists(stack);
     }
 
+
+    @Override
+    public int getEntityLifespan(ItemStack itemStack, Level world)
+    {
+        return Integer.MAX_VALUE;
+    }
+
     /**
      * Gets a map of item attribute modifiers, used by damage when used as melee weapon.
      */
