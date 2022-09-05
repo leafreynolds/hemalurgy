@@ -6,7 +6,6 @@ package leaf.hemalurgy.datagen.tags;
 
 import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.Hemalurgy;
-import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.ItemsRegistry;
 import leaf.hemalurgy.registry.TagsRegistry;
 import net.minecraft.data.DataGenerator;
@@ -37,6 +36,7 @@ public class ItemTagsGen extends ItemTagsProvider
                 add(curioAny, item);
             }
         }
+        //this.tag(TagsRegistry.Items.CURIO_BRACELET).add(ItemRegister.METAL_MIND.get());
     }
 
     public void add(Tag.Named<Item> branch, Item item)
