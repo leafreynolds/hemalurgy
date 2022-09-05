@@ -11,7 +11,6 @@ import leaf.hemalurgy.registry.TagsRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -37,6 +36,7 @@ public class ItemTagsGen extends ItemTagsProvider
                 add(curioAny, item);
             }
         }
+        //this.tag(TagsRegistry.Items.CURIO_BRACELET).add(ItemRegister.METAL_MIND.get());
     }
 
     public void add(TagKey<Item> branch, Item item)

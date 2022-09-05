@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -30,7 +31,8 @@ public class TagsRegistry
 			//empty
 		}
 
-		public static final TagKey<Item> CURIO_ANY = makeItem("curios", "curio");
+		public static final TagKey<Item> CURIO_ANY = makeItem(CuriosApi.MODID, "curio");
+		public static final TagKey<Item> CURIO_BRACELET = makeItem(CuriosApi.MODID, "bracelet");
 
 
 		public static final Map<Metal, TagKey<Item>> METAL_INGOT_TAGS =
