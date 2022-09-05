@@ -9,7 +9,10 @@ import com.legobmw99.allomancy.api.enums.Metal;
 import leaf.hemalurgy.constants.Constants;
 import leaf.hemalurgy.items.HemalurgicSpikeItem;
 import leaf.hemalurgy.registry.AttributesRegistry;
-import leaf.hemalurgy.utils.*;
+import leaf.hemalurgy.utils.CompoundNBTHelper;
+import leaf.hemalurgy.utils.MetalHelper;
+import leaf.hemalurgy.utils.StackNBTHelper;
+import leaf.hemalurgy.utils.TextHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -245,33 +248,49 @@ public interface IHemalurgicInfo
 
         tooltip.add(TextHelper.createTranslatedText(Constants.StringKeys.CONTAINED_POWERS_FOUND));
 
-        Collection<Metal> hemalurgyStealWhitelist = MetalHelper.getHemalurgyStealWhitelist(hemalurgicSpikeItem.getMetalType());
+        final Metal spikeMetalType = hemalurgicSpikeItem.getMetalType();
+        Collection<Metal> hemalurgyStealWhitelist = MetalHelper.getHemalurgyStealWhitelist(spikeMetalType);
 
         if (hemalurgyStealWhitelist != null)
         {
             for (Metal stealType : hemalurgyStealWhitelist)
             {
                 // if this spike has that power
-                if (hasHemalurgicPower(stack, hemalurgicSpikeItem.getMetalType(), stealType))
+                if (hasHemalurgicPower(stack, spikeMetalType, stealType))
                 {
                     //then grant it
-                    tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.getPowerName(hemalurgicSpikeItem.getMetalType(), stealType)));
+                    tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy." + MetalHelper.getPowerName(spikeMetalType, stealType)));
                 }
             }
         }
         else
         {
-            if (hasHemalurgicPower(stack, hemalurgicSpikeItem.getMetalType(), hemalurgicSpikeItem.getMetalType()))
+            if (hasHemalurgicPower(stack, spikeMetalType, spikeMetalType))
             {
-                double hemalurgicStrength = CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.getPowerName(hemalurgicSpikeItem.getMetalType()), 0);
+                double hemalurgicStrength = CompoundNBTHelper.getDouble(getHemalurgicInfo(stack), MetalHelper.getPowerName(spikeMetalType), 0);
 
-                if (hemalurgicSpikeItem.getMetalType() != Metal.IRON)
+                switch (spikeMetalType)
                 {
-                    hemalurgicStrength = hemalurgicStrength * 100;
+                    case IRON, CHROMIUM ->
+                    {
+                        // don't display as percentage
+                    }
+                    default ->
+                    {
+                        //but everything else does
+                        hemalurgicStrength = hemalurgicStrength * 100;
+                    }
                 }
-                double roundOff = (double) Math.round(hemalurgicStrength * 100) / 100;
 
-                tooltip.add(TextHelper.createTranslatedText("tooltip.hemalurgy.attribute." + hemalurgicSpikeItem.getMetalType().getName(), roundOff));
+
+                double roundOff = (double) Math.round(hemalurgicStrength * 100) / 100;
+                String sign = roundOff > 0 ? "+" : "";
+
+                tooltip.add(TextHelper.createTranslatedText(
+                        "tooltip.hemalurgy.attribute." + spikeMetalType.getName(),
+                        sign,
+                        roundOff
+                ));
             }
         }
 

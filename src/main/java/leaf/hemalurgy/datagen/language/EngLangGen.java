@@ -98,13 +98,14 @@ public class EngLangGen extends LanguageProvider
         add(Constants.StringKeys.PATCHOULI_NOT_INSTALLED, "Patchouli is not installed");
         add(Constants.StringKeys.CONTAINED_POWERS_FOUND, "Hemalurgic Charge:");
 
-        add("tooltip.hemalurgy.attribute.iron","+%s Attack Damage");
-        add("tooltip.hemalurgy.attribute.tin","+%s%% Better Night Vision");
-        add("tooltip.hemalurgy.attribute.copper","+%s%% XP");
-        add("tooltip.hemalurgy.attribute.zinc","+%s%% Emotional Fortitude");
-        add("tooltip.hemalurgy.attribute.duralumin","");//todo hemalurgic connection/identity
-        add("tooltip.hemalurgy.attribute.chromium","+%s%% Luck");
-        add("tooltip.hemalurgy.attribute.nicrosil","");//todo hemalurgic investiture
+        add("tooltip.hemalurgy.metals.contained", "Contained Metals:");
+        add("tooltip.hemalurgy.attribute.iron", "%s%s Attack Damage");
+        add("tooltip.hemalurgy.attribute.tin", "%s%s%% Better Night Vision");
+        add("tooltip.hemalurgy.attribute.copper", "%s%s%% XP");
+        add("tooltip.hemalurgy.attribute.zinc", "%s%s%% Emotional Fortitude");
+        add("tooltip.hemalurgy.attribute.duralumin", "");//todo hemalurgic connection/identity
+        add("tooltip.hemalurgy.attribute.chromium", "%s%s Luck");
+        add("tooltip.hemalurgy.attribute.nicrosil", "");//todo hemalurgic investiture
 
         for(Metal spikeMetal : Metal.values())
         {
