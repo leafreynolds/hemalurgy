@@ -211,6 +211,9 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
             Player player = (Player)slotContext.entity();
             final UUID stackWeWantToEquipUUID = getHemalurgicIdentity(stack);
 
+            HemalurgicSpikeItem item = (HemalurgicSpikeItem) stack.getItem();
+            Metal stackMetal = item.getMetalType();
+
             if (stackWeWantToEquipUUID != null)
             {
                 Predicate<ItemStack> spikePredicate = stackToFind ->
@@ -222,11 +225,17 @@ public class HemalurgicSpikeItem extends BaseItem implements IHasMetalType, IHem
                         return false;
                     }
 
-                    final HemalurgicSpikeItem hemalurgicSpikeItem = (HemalurgicSpikeItem) stackToFind.getItem();
+                    final HemalurgicSpikeItem foundSpikeItem = (HemalurgicSpikeItem) stackToFind.getItem();
                     final UUID foundSpikeUUID = getHemalurgicIdentity(stackToFind);
-                    return hemalurgicSpikeItem.getMetalType() == metalType
+
+                    final boolean matchingSpikeIdentity = foundSpikeItem.getMetalType() == metalType
                             && foundSpikeUUID != null
                             && foundSpikeUUID.compareTo(stackWeWantToEquipUUID) == 0;
+
+                    Metal testStackMetal = foundSpikeItem.getMetalType();
+                    final boolean onlyOneIronAllowed = stackMetal == Metal.IRON && stackMetal == testStackMetal;
+
+                    return matchingSpikeIdentity || onlyOneIronAllowed;
                 };
                 final Optional<ImmutableTriple<String, Integer, ItemStack>> curioSpike = CuriosApi.getCuriosHelper().findEquippedCurio(spikePredicate, player);
                 return curioSpike.isEmpty();
