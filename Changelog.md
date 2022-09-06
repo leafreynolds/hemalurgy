@@ -1,4 +1,14 @@
-## Hemalurgy - For 1.18.1 Minecraft
+## Hemalurgy - For 1.18.2 Minecraft
+
+### B8
+
+Only allow equipping a single iron spike. They were too strong.
+Fixed some spike tooltips.
+Stop spikes despawning when left on ground.
+Swap rabbits and white cats for chromium
+Disable aluminum spikes for now. They're too buggy.
+Fix tombstone not auto equipping spikes.
+
 
 ### B5
 
